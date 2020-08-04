@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "921085008675",
+    "firebase_url": "https://shuttle-reservation-3c127.firebaseio.com",
+    "project_id": "shuttle-reservation-3c127",
+    "storage_bucket": "shuttle-reservation-3c127.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:921085008675:android:cc5e4e3e29c317b72d4a96",
+        "android_client_info": {
+          "package_name": "com.mainpage.shuttlereservation"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "921085008675-7133pd9c6ic29kbkkle0pjfq9rcfjna3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mainpage.shuttlereservation",
+            "certificate_hash": "e21c7612b3fbf307fbbcdcce1bb73ca22755e7dc"
+          }
+        },
+        {
+          "client_id": "921085008675-558brkfnrrg38m7cue1hu44ip188jnrn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAmm02wyv4_SvphYDo7C60W0mHYHgEpHaE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "921085008675-558brkfnrrg38m7cue1hu44ip188jnrn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

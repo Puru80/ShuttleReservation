@@ -1,0 +1,35 @@
+<resources>
+    <string name="app_name">Shuttle Reservation</string>
+    <string name="Enroll">Enter Enrollment No.</string>
+    <string name="Password">Enter Password</string>
+    <string name="loggedIn">Keep me logged in</string>
+    <string name="logIn">Log In</string>
+    <string name="title_activity_home">Home</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+    <string name="Comm">Communicate</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_profile">Profile</string>
+    <string name="menu_share">Share</string>
+    <string name="menu_logout">Logout</string>
+    <string name="SignUp">Sign Up</string>
+    <string name="Name">Name</string>
+    <string name="log_out">LogOut</string>
+    <string name="booktick">BOOK TICKETS</string>
+    <string name="canceltick">CANCEL TICKETS</string>
+    <string name="destinations">Enter Destinations</string>
+    <string name="seats">Seats</string>
+    <string name="day">Select Day</string>
+    <string name="book">BOOK TICKETS</string>
+    <string name="dest_selection">Options: Botanical Garden, Noida City Center</string>
+    <string name="day_selection">Options: Friday,Saturday Out,Saturday Back,Sunday</string>
+    <string name="reason">Reason For Cancellation(OPTIONAL)</string>
+    <string name="cancel">Cancel</string>
+    <string name="tag_line">Let\'s Get Going</string>
+
+</resources>
