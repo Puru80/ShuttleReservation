@@ -9,6 +9,12 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -21,7 +27,7 @@ public class LogIn extends AppCompatActivity
     private FirebaseAuth.AuthStateListener mAuthSt;
     EditText enroll ;
     EditText passWord ;
-    String enr,enr2;
+//    String email;
 
     public void signUp(View view)
     {
@@ -36,9 +42,11 @@ public class LogIn extends AppCompatActivity
         passWord = findViewById(R.id.editText2);
 
         String pw = passWord.getText().toString();
-        enr = enroll.getText().toString();
-        enr2 = enroll.getText().toString() + "@bennett.edu.in";
+        String email = enroll.getText().toString();
+//        enr2 = enroll.getText().toString() + "@bennett.edu.in";
 
+        String reqURL = "https://shuttleres-0.herokuapp.com/api/v1/registration/login?email=" + email + "&password=" + pw;
+/*
         mAuth.signInWithEmailAndPassword(enr2,pw)
                 .addOnCompleteListener(LogIn.this, new OnCompleteListener<AuthResult>()
                 {
@@ -57,6 +65,34 @@ public class LogIn extends AppCompatActivity
                             Toast.makeText(LogIn.this, "Authentication unsuccessful, please try again", Toast.LENGTH_SHORT).show();
                     }
                 });
+*/
+
+        // Instantiate the RequestQueue.
+        RequestQueue queue = Volley.newRequestQueue(this);
+//        reqURL = String.format(reqURL, email, pw);
+
+        // Request a string response from the provided URL.
+        StringRequest request = new StringRequest(Request.Method.GET, reqURL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response)
+                    {
+                        Toast.makeText(LogIn.this, response, Toast.LENGTH_LONG).show();
+                        Intent i = new Intent(LogIn.this,Home.class);
+                        startActivity(i);
+                        finish();
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+//                error.getMessage();
+                Toast.makeText(LogIn.this, "Some Error occurred", Toast.LENGTH_LONG).show();
+            }
+        });
+
+        queue.add(request);
+
+
     }
 
     /*public void keepLogged(View view)
