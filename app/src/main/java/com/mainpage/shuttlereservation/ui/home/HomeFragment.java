@@ -1,6 +1,5 @@
 package com.mainpage.shuttlereservation.ui.home;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,7 +11,6 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
-import com.mainpage.shuttlereservation.Booking;
 import com.mainpage.shuttlereservation.R;
 
 public class HomeFragment extends Fragment
