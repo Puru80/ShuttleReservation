@@ -19,6 +19,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.HttpHeaderParser;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.firebase.auth.FirebaseAuth;
@@ -48,7 +49,7 @@ public class SignUp extends AppCompatActivity
 
         final String URL = "https://shuttleres-0.herokuapp.com/api/v1/registration";
 
-        try {
+        /*try {
             RequestQueue requestQueue = Volley.newRequestQueue(this);
             JSONObject jsonBody = new JSONObject();
             jsonBody.put("firstName", arr[0]);
@@ -57,13 +58,14 @@ public class SignUp extends AppCompatActivity
             jsonBody.put("password", userPassword);
             final String mRequestBody = jsonBody.toString();
 
-            StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
-                @Override
-                public void onResponse(String response) {
-                    Log.i("LOG_RESPONSE", response);
-                    Toast.makeText(SignUp.this, "Verify your email through the Link sent to " +
-                            "your provided email", Toast.LENGTH_SHORT).show();
-                }
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, response -> {
+                Log.i("LOG_RESPONSE", response);
+                Toast.makeText(SignUp.this, "Verify your email through the Link sent to " +
+                        "your provided email", Toast.LENGTH_SHORT).show();
+
+                Intent i = new Intent(SignUp.this, Home.class);
+                startActivity(i);
+                finish();
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
@@ -97,6 +99,35 @@ public class SignUp extends AppCompatActivity
 
             requestQueue.add(stringRequest);
         } catch (JSONException e) {
+            e.printStackTrace();
+        }*/
+
+        try {
+            RequestQueue requestQueue = Volley.newRequestQueue(this);
+            JSONObject jsonBody = new JSONObject();
+            jsonBody.put("firstName", arr[0]);
+            jsonBody.put("lastName", arr[1]);
+            jsonBody.put("email", userEmail);
+            jsonBody.put("password", userPassword);
+            final String mRequestBody = jsonBody.toString();
+
+            System.out.println(mRequestBody);
+
+            JsonObjectRequest req = new JsonObjectRequest(Request.Method.POST, URL, jsonBody,
+                    new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response) {
+                    Log.d(TAG, "onResponse: " + response.toString());
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.d(TAG, "onErrorResponse: Some error Occurred");
+                }
+            });
+
+            requestQueue.add(req);
+        }catch (Exception e){
             e.printStackTrace();
         }
     }

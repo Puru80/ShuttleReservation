@@ -14,6 +14,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -21,6 +22,10 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import org.json.JSONObject;
+
+import java.net.URI;
 
 public class LogIn extends AppCompatActivity
 {
@@ -53,7 +58,7 @@ public class LogIn extends AppCompatActivity
 //        reqURL = String.format(reqURL, email, pw);
 
         // Request a string response from the provided URL.
-        StringRequest request = new StringRequest(Request.Method.GET, reqURL,
+        /*StringRequest request = new StringRequest(Request.Method.GET, reqURL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response)
@@ -73,7 +78,23 @@ public class LogIn extends AppCompatActivity
             }
         });
 
-        queue.add(request);
+        queue.add(request);*/
+
+        try {
+            RequestQueue requestQueue = Volley.newRequestQueue(this);
+
+            JsonObjectRequest request1 = new JsonObjectRequest(Request.Method.GET, reqURL, null,
+                    response -> {
+                        Toast.makeText(LogIn.this, "SignIn Successful", Toast.LENGTH_LONG).show();
+                        Intent i = new Intent(LogIn.this,Home.class);
+                        startActivity(i);
+                        finish();
+                    }, error -> Toast.makeText(LogIn.this, "Some Error occured", Toast.LENGTH_SHORT).show());
+
+            requestQueue.add(request1);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 
 
     }
