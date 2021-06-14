@@ -47,60 +47,7 @@ public class SignUp extends AppCompatActivity
         final String userEmail = email.getText().toString();
         final String userPassword = passWord.getText().toString();
 
-        final String URL = "https://shuttleres-0.herokuapp.com/api/v1/registration";
-
-        /*try {
-            RequestQueue requestQueue = Volley.newRequestQueue(this);
-            JSONObject jsonBody = new JSONObject();
-            jsonBody.put("firstName", arr[0]);
-            jsonBody.put("lastName", arr[1]);
-            jsonBody.put("email", userEmail);
-            jsonBody.put("password", userPassword);
-            final String mRequestBody = jsonBody.toString();
-
-            StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, response -> {
-                Log.i("LOG_RESPONSE", response);
-                Toast.makeText(SignUp.this, "Verify your email through the Link sent to " +
-                        "your provided email", Toast.LENGTH_SHORT).show();
-
-                Intent i = new Intent(SignUp.this, Home.class);
-                startActivity(i);
-                finish();
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    Log.e("LOG_RESPONSE", error.toString());
-                }
-            }) {
-                @Override
-                public String getBodyContentType() {
-                    return "application/json; charset=utf-8";
-                }
-
-                @Override
-                public byte[] getBody() throws AuthFailureError {
-                    try {
-                        return mRequestBody == null ? null : mRequestBody.getBytes("utf-8");
-                    } catch (UnsupportedEncodingException uee) {
-                        VolleyLog.wtf("Unsupported Encoding while trying to get the bytes of %s using %s", mRequestBody, "utf-8");
-                        return null;
-                    }
-                }
-
-                @Override
-                protected Response<String> parseNetworkResponse(NetworkResponse response) {
-                    String responseString = "";
-                    if (response != null) {
-                        responseString = String.valueOf(response.statusCode);
-                    }
-                    return Response.success(responseString, HttpHeaderParser.parseCacheHeaders(response));
-                }
-            };
-
-            requestQueue.add(stringRequest);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }*/
+        final String URL = APIConstants.HOST + APIConstants.SIGN_UP;
 
         try {
             RequestQueue requestQueue = Volley.newRequestQueue(this);
@@ -114,17 +61,13 @@ public class SignUp extends AppCompatActivity
             System.out.println(mRequestBody);
 
             JsonObjectRequest req = new JsonObjectRequest(Request.Method.POST, URL, jsonBody,
-                    new Response.Listener<JSONObject>() {
-                @Override
-                public void onResponse(JSONObject response) {
-                    Log.d(TAG, "onResponse: " + response.toString());
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    Log.d(TAG, "onErrorResponse: Some error Occurred");
-                }
-            });
+                    response -> {
+                        Log.d(TAG, "onResponse: " + response.toString());
+                        Intent i = new Intent(this, OTPVerification.class);
+                        startActivity(i);
+                        finish();
+                    },
+                    error -> Log.d(TAG, "onErrorResponse: Some error Occurred"));
 
             requestQueue.add(req);
         }catch (Exception e){
@@ -143,21 +86,15 @@ public class SignUp extends AppCompatActivity
         btnSignUp = findViewById(R.id.btnSignUp);
         alreadyRegistered = findViewById(R.id.lnkLogin);
 
-        btnSignUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.d(TAG, "onClick: Entered in btnSignUp onClick");
-                signUp();
-            }
+        btnSignUp.setOnClickListener(view -> {
+            Log.d(TAG, "onClick: Entered in btnSignUp onClick");
+            signUp();
         });
 
-        alreadyRegistered.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(SignUp.this, LogIn.class);
-                startActivity(i);
-                finish();
-            }
+        alreadyRegistered.setOnClickListener(view -> {
+            Intent i = new Intent(SignUp.this, LogIn.class);
+            startActivity(i);
+            finish();
         });
 
     }

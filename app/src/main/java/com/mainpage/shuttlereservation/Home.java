@@ -58,40 +58,16 @@ public class Home extends AppCompatActivity
         String reqURL = "https://shuttleres-0.herokuapp.com/api/v1/registration/logout?email=puru.agar99@gmail.com";
 
         final StringRequest request = new StringRequest(Request.Method.GET, reqURL,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response)
-                    {
-                        Toast.makeText(Home.this, response, Toast.LENGTH_LONG).show();
-                        Intent i = new Intent(Home.this,LogIn.class);
-                        startActivity(i);
-                        finish();
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(Home.this, "Some Error Occurred", Toast.LENGTH_LONG).show();
-            }
-        });
+                response -> {
+                    Toast.makeText(Home.this, response, Toast.LENGTH_LONG).show();
+                    Intent i = new Intent(Home.this,LogIn.class);
+                    startActivity(i);
+                    finish();
+                }, error -> Toast.makeText(Home.this, "Some Error Occurred", Toast.LENGTH_LONG).show());
 
-//        Floating Action Button
+        //Floating Action Button
         FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
-                /*
-                FirebaseAuth.getInstance().signOut();
-                Intent i = new Intent(Home.this,LogIn.class);
-                startActivity(i);
-                finish();
-                */
-
-                queue.add(request);
-            }
-        });
-
+        fab.setOnClickListener(view -> queue.add(request));
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);

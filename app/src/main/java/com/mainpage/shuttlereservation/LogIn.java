@@ -48,37 +48,12 @@ public class LogIn extends AppCompatActivity
 
         String pw = passWord.getText().toString();
         String email = enroll.getText().toString();
-//        enr2 = email.getText().toString() + "@bennett.edu.in";
 
-        String reqURL = "https://shuttleres-0.herokuapp.com/api/v1/registration/login?email=" + email +
+        String reqURL = APIConstants.HOST + APIConstants.SIGN_IN + email +
                 "&password=" + pw;
 
         // Instantiate the RequestQueue.
         RequestQueue queue = Volley.newRequestQueue(this);
-//        reqURL = String.format(reqURL, email, pw);
-
-        // Request a string response from the provided URL.
-        /*StringRequest request = new StringRequest(Request.Method.GET, reqURL,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response)
-                    {
-                        Log.d(TAG, "LogIn Successful");
-                        Toast.makeText(LogIn.this, response, Toast.LENGTH_LONG).show();
-                        Intent i = new Intent(LogIn.this,Home.class);
-                        startActivity(i);
-                        finish();
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-//                error.getMessage();
-                Log.d(TAG, "Some Error Occurred");
-                Toast.makeText(LogIn.this, "Some Error occurred", Toast.LENGTH_LONG).show();
-            }
-        });
-
-        queue.add(request);*/
 
         try {
             RequestQueue requestQueue = Volley.newRequestQueue(this);
