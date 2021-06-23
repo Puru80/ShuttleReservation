@@ -67,7 +67,20 @@ public class SignUp extends AppCompatActivity
                         startActivity(i);
                         finish();
                     },
-                    error -> Log.d(TAG, "onErrorResponse: Some error Occurred"));
+                    error -> {
+                        try {
+                            NetworkResponse networkResponse = error.networkResponse;
+                            System.out.println(error.toString());
+                            if (networkResponse != null && networkResponse.data != null) {
+                                String jsonError = new String(networkResponse.data);
+                                JSONObject object = new JSONObject(jsonError);
+                                String er = object.getJSONObject("data").getString("message");
+                                Toast.makeText(this, er, Toast.LENGTH_SHORT).show();
+                            }}catch (Exception e){
+                                Toast.makeText(this, "Some Error Occured", Toast.LENGTH_SHORT).show();
+                                e.printStackTrace();
+                        }
+            });
 
             requestQueue.add(req);
         }catch (Exception e){
