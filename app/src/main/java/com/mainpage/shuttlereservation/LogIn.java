@@ -1,31 +1,14 @@
 package com.mainpage.shuttlereservation;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-
-import org.json.JSONObject;
-
-import java.net.URI;
+import com.mainpage.shuttlereservation.network.VolleyResponseListener;
 
 public class LogIn extends AppCompatActivity
 {
@@ -49,28 +32,22 @@ public class LogIn extends AppCompatActivity
         String pw = passWord.getText().toString();
         String email = enroll.getText().toString();
 
-        String reqURL = APIConstants.HOST + APIConstants.SIGN_IN + email +
-                "&password=" + pw;
 
-        // Instantiate the RequestQueue.
-        RequestQueue queue = Volley.newRequestQueue(this);
+        ShuttleResApplication.getInstance().getAppBeanFactory().getUserManager().signIn(email, pw,
+                new VolleyResponseListener() {
+                    @Override
+                    public void onError(String message) {
+                        Toast.makeText(LogIn.this, message, Toast.LENGTH_SHORT).show();
+                    }
 
-        try {
-            RequestQueue requestQueue = Volley.newRequestQueue(this);
-
-            JsonObjectRequest request1 = new JsonObjectRequest(Request.Method.GET, reqURL, null,
-                    response -> {
-                        Toast.makeText(LogIn.this, "SignIn Successful", Toast.LENGTH_LONG).show();
+                    @Override
+                    public void onSuccess(String message) {
+                        Toast.makeText(LogIn.this, message, Toast.LENGTH_LONG).show();
                         Intent i = new Intent(LogIn.this,Home.class);
                         startActivity(i);
                         finish();
-                    }, error -> Toast.makeText(LogIn.this, "Some Error occured", Toast.LENGTH_SHORT).show());
-
-            requestQueue.add(request1);
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-
+                    }
+                });
 
     }
 

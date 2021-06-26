@@ -11,11 +11,10 @@ import android.widget.Toast;
 import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.mainpage.shuttlereservation.network.APIConstants;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 public class OTPVerification extends AppCompatActivity {
@@ -50,9 +49,9 @@ public class OTPVerification extends AppCompatActivity {
                 url += otp.getText().toString();
                 JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url,
                         null, response -> {
-//                    ShuttleResApplication.getInstance().getAppBeanFactory().getUser().setFirstName("Puru");
-//                    ShuttleResApplication.getInstance().getAppBeanFactory().getUser().setLastName("Agarwal");
-//                    ShuttleResApplication.getInstance().getAppBeanFactory().getUser().setUserEmail("Puru");
+                    ShuttleResApplication.getInstance().getAppBeanFactory().getUser().setFirstName("Puru");
+                    ShuttleResApplication.getInstance().getAppBeanFactory().getUser().setLastName("Agarwal");
+                    ShuttleResApplication.getInstance().getAppBeanFactory().getUser().setUserEmail("Puru");
 
                         Toast.makeText(this, "Email Confirmed", Toast.LENGTH_SHORT).show();
                         Intent i = new Intent(this, Home.class);

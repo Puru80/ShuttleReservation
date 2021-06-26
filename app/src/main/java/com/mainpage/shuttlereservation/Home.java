@@ -3,12 +3,6 @@ package com.mainpage.shuttlereservation;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import android.view.View;
@@ -19,7 +13,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.navigation.NavigationView;
-import com.google.firebase.auth.FirebaseAuth;
+import com.mainpage.shuttlereservation.network.VolleyResponseListener;
 
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -54,20 +48,26 @@ public class Home extends AppCompatActivity
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        final RequestQueue queue = Volley.newRequestQueue(this);
-        String reqURL = "https://shuttleres-0.herokuapp.com/api/v1/registration/logout?email=puru.agar99@gmail.com";
-
-        final StringRequest request = new StringRequest(Request.Method.GET, reqURL,
-                response -> {
-                    Toast.makeText(Home.this, response, Toast.LENGTH_LONG).show();
-                    Intent i = new Intent(Home.this,LogIn.class);
-                    startActivity(i);
-                    finish();
-                }, error -> Toast.makeText(Home.this, "Some Error Occurred", Toast.LENGTH_LONG).show());
-
         //Floating Action Button
         FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(view -> queue.add(request));
+        fab.setOnClickListener(view -> {
+            ShuttleResApplication.getInstance().getAppBeanFactory().getUserManager().
+                    signOut(ShuttleResApplication.getInstance().getAppBeanFactory().getUser().userEmail,
+                            new VolleyResponseListener() {
+                                @Override
+                                public void onError(String message) {
+                                    Toast.makeText(Home.this, message, Toast.LENGTH_SHORT).show();
+                                }
+
+                                @Override
+                                public void onSuccess(String message) {
+                                    Toast.makeText(Home.this, message, Toast.LENGTH_LONG).show();
+                                    Intent i = new Intent(Home.this,LogIn.class);
+                                    startActivity(i);
+                                    finish();
+                                }
+                            });
+        });
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);

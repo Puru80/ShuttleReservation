@@ -6,6 +6,8 @@ import android.util.Log;
 import androidx.multidex.MultiDex;
 import androidx.multidex.MultiDexApplication;
 
+import com.mainpage.shuttlereservation.domains.AppBeanFactory;
+
 public class ShuttleResApplication extends MultiDexApplication
 {
     private static Context ctx;
@@ -23,7 +25,7 @@ public class ShuttleResApplication extends MultiDexApplication
     public void onCreate() {
         super.onCreate();
         MultiDex.install(this);
-        Log.v("Aapplication Started", "Oncreate");
+        Log.v("Application Started", "Oncreate");
         instance = this;
         ShuttleResApplication.ctx = getApplicationContext();
     }
