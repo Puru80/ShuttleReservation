@@ -1,4 +1,4 @@
-package com.mainpage.shuttlereservation;
+package com.mainpage.shuttlereservation.presentation;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,6 +8,9 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.mainpage.shuttlereservation.Home;
+import com.mainpage.shuttlereservation.R;
+import com.mainpage.shuttlereservation.ShuttleResApplication;
 import com.mainpage.shuttlereservation.network.VolleyResponseListener;
 
 public class LogIn extends AppCompatActivity
@@ -15,7 +18,8 @@ public class LogIn extends AppCompatActivity
     EditText enroll ;
     EditText passWord ;
     public final String TAG = "LogIn Volley";
-//    String email;
+
+    //TODO: Refactoring
 
     public void signUp(View view)
     {
@@ -43,7 +47,7 @@ public class LogIn extends AppCompatActivity
                     @Override
                     public void onSuccess(String message) {
                         Toast.makeText(LogIn.this, message, Toast.LENGTH_LONG).show();
-                        Intent i = new Intent(LogIn.this,Home.class);
+                        Intent i = new Intent(LogIn.this, Home.class);
                         startActivity(i);
                         finish();
                     }

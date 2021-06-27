@@ -1,4 +1,4 @@
-package com.mainpage.shuttlereservation.ui.share;
+package com.mainpage.shuttlereservation.presentation.share;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

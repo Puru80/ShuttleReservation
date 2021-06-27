@@ -7,19 +7,19 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.mainpage.shuttlereservation.ui.home.HomeFragment"
+        android:name="com.mainpage.shuttlereservation.presentation.home.HomeFragment"
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/nav_profile"
-        android:name="com.mainpage.shuttlereservation.ui.profile.Profile"
+        android:name="com.mainpage.shuttlereservation.presentation.profile.Profile"
         android:label="@string/menu_profile"
         tools:layout="@layout/profile_fragment" />
 
     <fragment
         android:id="@+id/nav_share"
-        android:name="com.mainpage.shuttlereservation.ui.share.ShareFragment"
+        android:name="com.mainpage.shuttlereservation.presentation.share.ShareFragment"
         android:label="@string/menu_share"
         tools:layout="@layout/fragment_share" />
 

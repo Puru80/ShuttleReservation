@@ -1,4 +1,4 @@
-package com.mainpage.shuttlereservation;
+package com.mainpage.shuttlereservation.presentation;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -16,22 +16,22 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.firebase.auth.FirebaseAuth;
+import com.mainpage.shuttlereservation.R;
 import com.mainpage.shuttlereservation.network.APIConstants;
 
 import org.json.JSONObject;
 
 public class SignUp extends AppCompatActivity
 {
-    FirebaseAuth mAuth;
     Button btnSignUp, alreadyRegistered;
     EditText email,passWord, fullName;
     public final String TAG = "Registration Volley";
 
+    //TODO: Code refactor and SignUp implementation
+
     public void signUp()
     {
-        fullName = findViewById(R.id.txtName);
-        email = findViewById(R.id.txtEmail);
-        passWord = findViewById(R.id.txtPwd);
+
 
         String name = fullName.getText().toString();
         final String[] arr = name.split(" ");
@@ -85,8 +85,6 @@ public class SignUp extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
-        mAuth = FirebaseAuth.getInstance();
-
         btnSignUp = findViewById(R.id.btnSignUp);
         alreadyRegistered = findViewById(R.id.lnkLogin);
 
@@ -101,5 +99,14 @@ public class SignUp extends AppCompatActivity
             finish();
         });
 
+    }
+
+    public void setupUI(){
+        btnSignUp = findViewById(R.id.btnSignUp);
+        alreadyRegistered = findViewById(R.id.lnkLogin);
+
+        fullName = findViewById(R.id.txtName);
+        email = findViewById(R.id.txtEmail);
+        passWord = findViewById(R.id.txtPwd);
     }
 }

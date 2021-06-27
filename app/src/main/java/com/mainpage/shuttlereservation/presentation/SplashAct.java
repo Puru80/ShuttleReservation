@@ -1,10 +1,12 @@
-package com.mainpage.shuttlereservation;
+package com.mainpage.shuttlereservation.presentation;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+
+import com.mainpage.shuttlereservation.R;
 
 public class SplashAct extends AppCompatActivity
 {

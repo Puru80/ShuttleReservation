@@ -1,4 +1,4 @@
-package com.mainpage.shuttlereservation.ui.profile;
+package com.mainpage.shuttlereservation.presentation.profile;
 
 import androidx.lifecycle.ViewModelProviders;
 

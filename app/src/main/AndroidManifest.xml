@@ -12,17 +12,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".OTPVerification"></activity>
-        <activity android:name=".Cancelling" />
-        <activity android:name=".Booking" />
-        <activity android:name=".SignUp" />
+        <activity android:name=".presentation.OTPVerification"></activity>
+        <activity android:name=".presentation.Cancelling" />
+        <activity android:name=".presentation.Booking" />
+        <activity android:name=".presentation.SignUp" />
         <activity
             android:name=".Home"
             android:label="@string/title_activity_home"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".LogIn" />
+        <activity android:name=".presentation.LogIn" />
         <activity
-            android:name=".SplashAct"
+            android:name=".presentation.SplashAct"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

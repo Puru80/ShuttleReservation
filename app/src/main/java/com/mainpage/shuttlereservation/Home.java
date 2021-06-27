@@ -14,6 +14,9 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.navigation.NavigationView;
 import com.mainpage.shuttlereservation.network.VolleyResponseListener;
+import com.mainpage.shuttlereservation.presentation.Booking;
+import com.mainpage.shuttlereservation.presentation.Cancelling;
+import com.mainpage.shuttlereservation.presentation.LogIn;
 
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -29,13 +32,13 @@ public class Home extends AppCompatActivity
 
     public void bookTickets(View view)
     {
-        Intent i = new Intent(Home.this,Booking.class);
+        Intent i = new Intent(Home.this, Booking.class);
         startActivity(i);
     }
 
     public void cancelTickets(View view)
     {
-        Intent i = new Intent(Home.this,Cancelling.class);
+        Intent i = new Intent(Home.this, Cancelling.class);
         startActivity(i);
     }
 
@@ -62,7 +65,7 @@ public class Home extends AppCompatActivity
                                 @Override
                                 public void onSuccess(String message) {
                                     Toast.makeText(Home.this, message, Toast.LENGTH_LONG).show();
-                                    Intent i = new Intent(Home.this,LogIn.class);
+                                    Intent i = new Intent(Home.this, LogIn.class);
                                     startActivity(i);
                                     finish();
                                 }
