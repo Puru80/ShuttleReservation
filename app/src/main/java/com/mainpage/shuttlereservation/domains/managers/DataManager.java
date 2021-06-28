@@ -16,8 +16,11 @@ public class DataManager
         return instance;
     }
 
+    //TODO: To be implemented
     public void getUserDetails(String email, VolleyResponseListener responseListener){
         String url = APIConstants.HOST + APIConstants.GET_USER_DETAILS + email;
         
     }
+
+    //TODO: Implement 'Keem me signedIn Logic'
 }

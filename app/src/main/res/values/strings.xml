@@ -40,5 +40,6 @@
     <string name="full_name">Full Name</string>
     <string name="email">Email</string>
     <string name="already_registered_login_here">Already Registered? Login here</string>
+    <string name="enter_email">Enter email</string>
 
 </resources>

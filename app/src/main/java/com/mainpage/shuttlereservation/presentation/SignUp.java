@@ -5,79 +5,21 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 
-import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.android.volley.NetworkResponse;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
-import com.google.firebase.auth.FirebaseAuth;
 import com.mainpage.shuttlereservation.R;
-import com.mainpage.shuttlereservation.network.APIConstants;
+import com.mainpage.shuttlereservation.ShuttleResApplication;
+import com.mainpage.shuttlereservation.network.VolleyResponseListener;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 public class SignUp extends AppCompatActivity
 {
     Button btnSignUp, alreadyRegistered;
     EditText email,passWord, fullName;
-    public final String TAG = "Registration Volley";
-
-    //TODO: Code refactor and SignUp implementation
-
-    public void signUp()
-    {
-
-
-        String name = fullName.getText().toString();
-        final String[] arr = name.split(" ");
-        final String userEmail = email.getText().toString();
-        final String userPassword = passWord.getText().toString();
-
-        final String URL = APIConstants.HOST + APIConstants.SIGN_UP;
-
-        try {
-            RequestQueue requestQueue = Volley.newRequestQueue(this);
-            JSONObject jsonBody = new JSONObject();
-            jsonBody.put("firstName", arr[0]);
-            jsonBody.put("lastName", arr[1]);
-            jsonBody.put("email", userEmail);
-            jsonBody.put("password", userPassword);
-            final String mRequestBody = jsonBody.toString();
-
-            System.out.println(mRequestBody);
-
-            JsonObjectRequest req = new JsonObjectRequest(Request.Method.POST, URL, jsonBody,
-                    response -> {
-                        Log.d(TAG, "onResponse: " + response.toString());
-                        Intent i = new Intent(this, OTPVerification.class);
-                        startActivity(i);
-                        finish();
-                    },
-                    error -> {
-                        try {
-                            NetworkResponse networkResponse = error.networkResponse;
-                            System.out.println(error.toString());
-                            if (networkResponse != null && networkResponse.data != null) {
-                                String jsonError = new String(networkResponse.data);
-                                JSONObject object = new JSONObject(jsonError);
-                                String er = object.getJSONObject("data").getString("message");
-                                Toast.makeText(this, er, Toast.LENGTH_SHORT).show();
-                            }}catch (Exception e){
-                                Toast.makeText(this, "Some Error Occured", Toast.LENGTH_SHORT).show();
-                                e.printStackTrace();
-                        }
-            });
-
-            requestQueue.add(req);
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -85,19 +27,8 @@ public class SignUp extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
-        btnSignUp = findViewById(R.id.btnSignUp);
-        alreadyRegistered = findViewById(R.id.lnkLogin);
-
-        btnSignUp.setOnClickListener(view -> {
-            Log.d(TAG, "onClick: Entered in btnSignUp onClick");
-            signUp();
-        });
-
-        alreadyRegistered.setOnClickListener(view -> {
-            Intent i = new Intent(SignUp.this, LogIn.class);
-            startActivity(i);
-            finish();
-        });
+        setupUI();
+        listeners();
 
     }
 
@@ -108,5 +39,52 @@ public class SignUp extends AppCompatActivity
         fullName = findViewById(R.id.txtName);
         email = findViewById(R.id.txtEmail);
         passWord = findViewById(R.id.txtPwd);
+    }
+
+    public void listeners(){
+        btnSignUp.setOnClickListener(view -> {
+            if(email.getText().toString()==null)
+                email.setError("Required Field");
+            if(passWord.getText().toString()==null)
+                passWord.setError("Required Field");
+            if(fullName.getText().toString()==null)
+                fullName.setError("Required Field");
+
+            String name = fullName.getText().toString();
+            final String[] arr = name.split(" ");
+            final String userEmail = email.getText().toString();
+            final String userPassword = passWord.getText().toString();
+
+            JSONObject jsonBody = new JSONObject();
+            try {
+                jsonBody.put("firstName", arr[0]);
+                jsonBody.put("lastName", arr[1]);
+                jsonBody.put("email", userEmail);
+                jsonBody.put("password", userPassword);
+
+                ShuttleResApplication.getInstance().getAppBeanFactory().getUserManager().signUp(jsonBody, new VolleyResponseListener() {
+                    @Override
+                    public void onError(String message) {
+                        Toast.makeText(SignUp.this, message, Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onSuccess(String message) {
+                        Toast.makeText(SignUp.this, message, Toast.LENGTH_SHORT).show();
+                        Intent i = new Intent(SignUp.this, OTPVerification.class);
+                        startActivity(i);
+                        finish();
+                    }
+                });
+            } catch (JSONException jsonException) {
+                jsonException.printStackTrace();
+            }
+        });
+
+        alreadyRegistered.setOnClickListener(view -> {
+            Intent i = new Intent(SignUp.this, LogIn.class);
+            startActivity(i);
+            finish();
+        });
     }
 }
