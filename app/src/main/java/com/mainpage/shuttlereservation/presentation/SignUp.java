@@ -62,7 +62,8 @@ public class SignUp extends AppCompatActivity
                 jsonBody.put("email", userEmail);
                 jsonBody.put("password", userPassword);
 
-                ShuttleResApplication.getInstance().getAppBeanFactory().getUserManager().signUp(jsonBody, new VolleyResponseListener() {
+                ShuttleResApplication.getInstance().getAppBeanFactory().getUserManager().signUp(jsonBody,
+                        new VolleyResponseListener() {
                     @Override
                     public void onError(String message) {
                         Toast.makeText(SignUp.this, message, Toast.LENGTH_SHORT).show();

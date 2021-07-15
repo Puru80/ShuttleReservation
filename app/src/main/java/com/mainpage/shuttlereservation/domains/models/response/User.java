@@ -1,4 +1,4 @@
-package com.mainpage.shuttlereservation.domains.models;
+package com.mainpage.shuttlereservation.domains.models.response;
 
 public class User
 {

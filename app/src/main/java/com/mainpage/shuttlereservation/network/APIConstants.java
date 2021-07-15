@@ -7,4 +7,5 @@ public class APIConstants {
     public static final String SIGN_OUT = "registration/logout?email=";
     public static final String EMAIL_VERIFICATION = "registration/confirm?token=";
     public static final String GET_USER_DETAILS = "registration/userdetails?email=";
+    public static final String BOOK_TICKET = "ticket";
 }

@@ -8,6 +8,7 @@ import com.mainpage.shuttlereservation.ShuttleResApplication;
 import com.mainpage.shuttlereservation.network.MySingleton;
 import com.mainpage.shuttlereservation.network.VolleyResponseListener;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 public class UserManager
@@ -21,6 +22,7 @@ public class UserManager
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, reqURL, null,
                 response -> {
+                    ShuttleResApplication.getInstance().getAppBeanFactory().getDataManager().getUserDetails(email);
                     responseListener.onSuccess("LogIn Successful");
                 }, error -> {
             NetworkResponse networkResponse = error.networkResponse;
@@ -67,7 +69,15 @@ public class UserManager
         String url = APIConstants.HOST + APIConstants.SIGN_UP ;
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, jsonBody,
-                response -> responseListener.onSuccess("Email Registered, Please verify your email"),
+                response -> {
+                    try {
+                        ShuttleResApplication.getInstance().getAppBeanFactory().getDataManager().
+                                getUserDetails(jsonBody.getString("email"));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    responseListener.onSuccess("Email Registered, Please verify your email");
+                },
                 error -> {
                     NetworkResponse networkResponse = error.networkResponse;
                     try{

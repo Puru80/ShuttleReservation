@@ -7,82 +7,48 @@
     android:layout_height="match_parent"
     tools:context=".presentation.Booking">
 
-    <EditText
-        android:id="@+id/editText4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
-        android:ems="10"
-        android:hint="@string/destinations"
-        android:inputType="textPersonName"
-        android:textSize="30sp"
+    <androidx.appcompat.widget.AppCompatSpinner
+        android:id="@+id/destSpinner"
+        android:layout_width="@dimen/_220sdp"
+        android:layout_height="@dimen/_30sdp"
+        android:prompt="@string/select_destination"
+        android:spinnerMode="dropdown"
+        android:layout_marginTop="@dimen/_30sdp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.509"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/editText3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="72dp"
-        android:ems="10"
-        android:hint="@string/day"
-        android:inputType="textPersonName"
-        android:textSize="30sp"
+    <androidx.appcompat.widget.AppCompatSpinner
+        android:id="@+id/timeSpinner"
+        android:layout_width="@dimen/_220sdp"
+        android:layout_height="@dimen/_30sdp"
+        android:prompt="@string/select_destination"
+        android:spinnerMode="dropdown"
+        android:layout_marginTop="@dimen/_20sdp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.509"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText4" />
+        app:layout_constraintTop_toBottomOf="@+id/destSpinner" />
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="68dp"
-        android:text="@string/dest_selection"
-        android:textSize="15sp"
+    <androidx.appcompat.widget.AppCompatSpinner
+        android:id="@+id/seatSpinner"
+        android:layout_width="@dimen/_220sdp"
+        android:layout_height="@dimen/_30sdp"
+        android:prompt="@string/select_destination"
+        android:spinnerMode="dropdown"
+        android:layout_marginTop="@dimen/_20sdp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.234"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/editText4" />
+        app:layout_constraintTop_toBottomOf="@+id/timeSpinner" />
 
-    <TextView
-        android:id="@+id/textView2"
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/bookTicket"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/day_selection"
-        android:textSize="15sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.136"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText3" />
-
-    <EditText
-        android:id="@+id/editText5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="1dp"
-        android:ems="10"
-        android:hint="@string/seats"
-        android:inputType="textPersonName"
-        android:textSize="25sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.245"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2"
-        app:layout_constraintVertical_bias="0.195" />
-
-    <Button
-        android:id="@+id/button3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="52dp"
-        android:onClick="Ticketing"
         android:text="@string/booktick"
         android:textSize="25sp"
+        android:layout_marginTop="@dimen/_30sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText5" />
+        app:layout_constraintTop_toBottomOf="@+id/seatSpinner" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

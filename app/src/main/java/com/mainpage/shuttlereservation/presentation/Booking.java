@@ -1,114 +1,29 @@
 package com.mainpage.shuttlereservation.presentation;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.Toast;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
+import androidx.appcompat.widget.AppCompatSpinner;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.FieldValue;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
-import com.mainpage.shuttlereservation.Home;
 import com.mainpage.shuttlereservation.R;
+import com.mainpage.shuttlereservation.ShuttleResApplication;
+import com.mainpage.shuttlereservation.domains.models.response.Ticket;
 
-import java.util.HashMap;
-import java.util.Map;
+import org.json.JSONObject;
+
+import java.util.List;
 
 public class Booking extends AppCompatActivity
 {
-    FirebaseFirestore db;
-    public String dest,time;
-    public int seats;
-    public String id;
-
-    public void Ticketing(View view)
-    {
-
-        FirebaseUser use = FirebaseAuth.getInstance().getCurrentUser();
-        assert use != null;
-        String email = use.getEmail();
-
-        EditText ed3 = findViewById(R.id.editText4);
-        dest = ed3.getText().toString();
-        EditText ed2 = findViewById(R.id.editText3);
-        time = ed2.getText().toString();
-        EditText ed5 = findViewById(R.id.editText5);
-        seats = Integer.parseInt(ed5.getText().toString());
-
-        final Map<String, Object> user = new HashMap<>();
-        user.put("Email",email);
-        user.put("Destination",dest);
-        user.put("Time",time);
-        user.put("Number",seats);
-        user.put("Stamp",FieldValue.serverTimestamp());
-
-        if(seats>2 || seats<=0)
-        {
-            ed5.setText("");
-            Toast.makeText(this, "Maximum 2 Seats", Toast.LENGTH_SHORT).show();
-        }
-        else
-        {
-            db.collection("Bookings").whereEqualTo("Email",email)
-                    .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>()
-            {
-                        @Override
-                        public void onComplete(@NonNull Task<QuerySnapshot> task)
-                        {
-                            if(task.isSuccessful())
-                            {
-                                for(QueryDocumentSnapshot doc:task.getResult())
-                                {
-                                    Toast.makeText(Booking.this, "You have already booked tickets"
-                                            + "with Id " + doc.getId(),
-                                            Toast.LENGTH_SHORT).show();
-                                    Intent i = new Intent(Booking.this, Home.class);
-                                    startActivity(i);
-                                    finish();
-                                }
-                            }
-                            else
-                            {
-                                db.collection("Bookings").add(user)
-                                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                                            @Override
-                                            public void onSuccess(DocumentReference doc) {
-                                                Toast.makeText(Booking.this, "Booking Successful"
-                                                        + " Ticket Id: "
-                                                        + doc.getId(), Toast.LENGTH_LONG).show();
-                                                id = doc.getId();
-                                                //id = doc.getPath();
-                                                Intent i = new Intent(Booking.this, Home.class);
-                                                startActivity(i);
-                                                finish();
-                                            }
-                                        })
-                                        .addOnFailureListener(new OnFailureListener()
-                                        {
-                                            @Override
-                                            public void onFailure(@NonNull Exception e) {
-                                                Toast.makeText(Booking.this, "Booking UnSuccessful, Please Try Again"
-                                                        , Toast.LENGTH_SHORT).show();
-
-                                            }
-                                        });
-                            }
-                        }
-            });
-        }
-    }
+    private AppCompatSpinner destinationSpinner, timingSpinner, seatSpinner;
+    private AppCompatButton btnBook;
+    private Ticket ticket;
+    private List<String> destinations, timing, seats;
+    private JSONObject ticketObject = new JSONObject();
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -116,6 +31,84 @@ public class Booking extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_booking);
 
-        db = FirebaseFirestore.getInstance();
+        destinations = ShuttleResApplication.getInstance().getAppBeanFactory().getDataManager().getDestinations();
+        timing = ShuttleResApplication.getInstance().getAppBeanFactory().getDataManager().getTimings();
+        seats = ShuttleResApplication.getInstance().getAppBeanFactory().getDataManager().getSeats();
+
+        setupUI();
+        listeners();
+
+    }
+
+    void setupUI(){
+        //Destination Selection
+        destinationSpinner = findViewById(R.id.destSpinner);
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item,
+                destinations);
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        destinationSpinner.setAdapter(arrayAdapter);
+        destinationSpinner.setPrompt("Select Destinations");
+        destinationSpinner.setSelection(-1);
+
+        //Time selection
+        timingSpinner = findViewById(R.id.timeSpinner);
+        arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item,
+                timing);
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        timingSpinner.setAdapter(arrayAdapter);
+
+        //Seat selection
+        seatSpinner = findViewById(R.id.seatSpinner);
+        arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item,
+                seats);
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        seatSpinner.setAdapter(arrayAdapter);
+
+        ticket = new Ticket();
+
+        btnBook = findViewById(R.id.bookTicket);
+    }
+
+    void listeners(){
+        destinationSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                ticket.setDestination(destinations.get(i));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        timingSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                ticket.setTiming(timing.get(i));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        seatSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if(i!=0)
+                    ticket.setSeats(Long.parseLong(seats.get(i)));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        btnBook.setOnClickListener(view -> {
+
+        });
     }
 }
