@@ -57,6 +57,9 @@ public class OTPVerification extends AppCompatActivity {
 
                         @Override
                         public void onSuccess(String message) {
+                            Intent intent = getIntent();
+                            ShuttleResApplication.getInstance().getAppBeanFactory().getDataManager().getUserDetails(intent.
+                                    getStringExtra("email"));
                             Intent i = new Intent(OTPVerification.this, Home.class);
                             startActivity(i);
                             Toast.makeText(OTPVerification.this, message, Toast.LENGTH_SHORT).show();

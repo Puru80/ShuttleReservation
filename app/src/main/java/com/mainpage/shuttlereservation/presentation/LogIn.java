@@ -58,6 +58,7 @@ public class LogIn extends AppCompatActivity
 
                         @Override
                         public void onSuccess(String message) {
+                            ShuttleResApplication.getInstance().getAppBeanFactory().getDataManager().getUserDetails(email);
                             Toast.makeText(LogIn.this, message, Toast.LENGTH_LONG).show();
                             Intent i = new Intent(LogIn.this, Home.class);
                             startActivity(i);

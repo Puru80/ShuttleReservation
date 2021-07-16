@@ -73,6 +73,7 @@ public class SignUp extends AppCompatActivity
                     public void onSuccess(String message) {
                         Toast.makeText(SignUp.this, message, Toast.LENGTH_SHORT).show();
                         Intent i = new Intent(SignUp.this, OTPVerification.class);
+                        i.putExtra("email", userEmail);
                         startActivity(i);
                         finish();
                     }

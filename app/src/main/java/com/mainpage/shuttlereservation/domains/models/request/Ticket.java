@@ -1,4 +1,4 @@
-package com.mainpage.shuttlereservation.domains.models.response;
+package com.mainpage.shuttlereservation.domains.models.request;
 
 public class Ticket {
     private String destination;

@@ -21,15 +21,12 @@ public class DataManager
     private static final List<String> timings = new ArrayList<>();
     private static final List<String> seats = new ArrayList<>();
 
-    public DataManager() {
-        getUserDetails("puru.agar99@gmail.com");
-    }
+    public DataManager() {}
 
     public DataManager getInstance(){
         return instance;
     }
 
-    //TODO: To be implemented
     public void getUserDetails(String email){
         String url = APIConstants.HOST + APIConstants.GET_USER_DETAILS + email;
 
@@ -75,5 +72,9 @@ public class DataManager
         seats.add("1");
         seats.add("2");
         return seats;
+    }
+
+    public User getUser() {
+        return user;
     }
 }
