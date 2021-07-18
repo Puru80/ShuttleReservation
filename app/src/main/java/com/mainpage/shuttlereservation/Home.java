@@ -1,6 +1,8 @@
 package com.mainpage.shuttlereservation;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -30,21 +32,18 @@ public class Home extends AppCompatActivity
 {
     private AppBarConfiguration mAppBarConfiguration;
 
-    public void bookTickets(View view)
-    {
+    public void bookTickets(View view) {
         Intent i = new Intent(Home.this, Booking.class);
         startActivity(i);
     }
 
-    public void cancelTickets(View view)
-    {
+    public void cancelTickets(View view) {
         Intent i = new Intent(Home.this, Cancelling.class);
         startActivity(i);
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
@@ -64,6 +63,13 @@ public class Home extends AppCompatActivity
 
                                 @Override
                                 public void onSuccess(String message) {
+                                    SharedPreferences sharedPreferences = ShuttleResApplication.getCtx().getSharedPreferences("SharedPref",
+                                            Context.MODE_PRIVATE);
+                                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                                    editor.putString("email", "None");
+                                    editor.putString("password", "None");
+                                    editor.apply();
+
                                     Toast.makeText(Home.this, message, Toast.LENGTH_LONG).show();
                                     Intent i = new Intent(Home.this, LogIn.class);
                                     startActivity(i);

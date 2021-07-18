@@ -65,6 +65,17 @@
         android:ems="10"
         android:layout_marginStart="100dp" />
 
+    <androidx.appcompat.widget.AppCompatCheckBox
+        android:id="@+id/rememberMe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/remember_me"
+        android:textSize="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_marginBottom="@dimen/_5sdp"
+        android:layout_marginStart="100dp"
+        android:layout_marginLeft="100dp" />
+
     <Button
         android:id="@+id/btnSignUp"
         android:layout_width="wrap_content"

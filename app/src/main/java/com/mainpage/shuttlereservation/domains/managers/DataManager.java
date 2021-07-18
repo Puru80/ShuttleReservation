@@ -1,7 +1,11 @@
 package com.mainpage.shuttlereservation.domains.managers;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
 import com.android.volley.Request;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.mainpage.shuttlereservation.R;
 import com.mainpage.shuttlereservation.ShuttleResApplication;
 import com.mainpage.shuttlereservation.network.APIConstants;
 import com.mainpage.shuttlereservation.domains.models.response.User;
@@ -15,11 +19,13 @@ import java.util.List;
 
 public class DataManager
 {
+    private static final Context ctx = ShuttleResApplication.getCtx();
     private static final DataManager instance = new DataManager();
     private static final User user = new User();
     private static final List<String> destinations = new ArrayList<>();
     private static final List<String> timings = new ArrayList<>();
     private static final List<String> seats = new ArrayList<>();
+    SharedPreferences sh = ctx.getSharedPreferences("SharedPref", Context.MODE_PRIVATE);
 
     public DataManager() {}
 
@@ -48,29 +54,42 @@ public class DataManager
     }
 
     //TODO: Implement 'Keep me signedIn Logic'
+    public void rememberMe(String email, String password){
+        SharedPreferences.Editor editor = sh.edit();
+        editor.putString("email", email);
+        editor.putString("password", password);
+
+        editor.apply();
+    }
 
     public List<String> getDestinations(){
-        destinations.add("Select Destination");
-        destinations.add("Pari Chowk");
-        destinations.add("Noida City Center");
-        destinations.add("Botanical Garden");
-
+        if(destinations.isEmpty()){
+            destinations.add("Select Destination");
+            destinations.add("Pari Chowk");
+            destinations.add("Noida City Center");
+            destinations.add("Botanical Garden");
+        }
         return destinations;
     }
 
     public List<String> getTimings() {
-        timings.add("Select Time");
-        timings.add("Friday Out");
-        timings.add("Saturday In");
-        timings.add("Saturday Out");
-        timings.add("Sunday In");
+        if(timings.isEmpty()){
+            timings.add("Select Time");
+            timings.add("Friday Out");
+            timings.add("Saturday In");
+            timings.add("Saturday Out");
+            timings.add("Sunday In");
+
+        }
         return timings;
     }
 
     public List<String> getSeats() {
-        seats.add("Select Seat");
-        seats.add("1");
-        seats.add("2");
+        if (seats.isEmpty()){
+            seats.add("Select Seat");
+            seats.add("1");
+            seats.add("2");
+        }
         return seats;
     }
 

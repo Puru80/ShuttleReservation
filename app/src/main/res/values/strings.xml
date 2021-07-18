@@ -42,5 +42,6 @@
     <string name="already_registered_login_here">Already Registered? Login here</string>
     <string name="enter_email">Enter email</string>
     <string name="select_destination">Select Destination</string>
+    <string name="remember_me">Remember Me</string>
 
 </resources>

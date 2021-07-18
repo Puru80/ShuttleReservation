@@ -60,6 +60,9 @@ public class OTPVerification extends AppCompatActivity {
                             Intent intent = getIntent();
                             ShuttleResApplication.getInstance().getAppBeanFactory().getDataManager().getUserDetails(intent.
                                     getStringExtra("email"));
+                            if(intent.getBooleanExtra("Keep Me SignedIn", false))
+                                ShuttleResApplication.getInstance().getAppBeanFactory().getDataManager().rememberMe(intent.getStringExtra("email"),
+                                        intent.getStringExtra("password"));
                             Intent i = new Intent(OTPVerification.this, Home.class);
                             startActivity(i);
                             Toast.makeText(OTPVerification.this, message, Toast.LENGTH_SHORT).show();

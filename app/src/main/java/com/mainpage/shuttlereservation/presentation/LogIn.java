@@ -1,8 +1,11 @@
 package com.mainpage.shuttlereservation.presentation;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatCheckBox;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -18,6 +21,7 @@ public class LogIn extends AppCompatActivity
 {
     EditText enroll , passWord;
     Button btnLogIn, btnSignUp;
+    AppCompatCheckBox rememberMe;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -30,8 +34,7 @@ public class LogIn extends AppCompatActivity
     }
 
     @Override
-    protected void onStart()
-    {
+    protected void onStart() {
         super.onStart();
     }
 
@@ -41,6 +44,8 @@ public class LogIn extends AppCompatActivity
 
         btnLogIn = findViewById(R.id.btLogIn);
         btnSignUp = findViewById(R.id.btnSignUp);
+
+        rememberMe = findViewById(R.id.rememberMe);
     }
 
     public void listeners(){
@@ -48,23 +53,7 @@ public class LogIn extends AppCompatActivity
             String pw = passWord.getText().toString();
             String email = enroll.getText().toString();
 
-
-            ShuttleResApplication.getInstance().getAppBeanFactory().getUserManager().signIn(email, pw,
-                    new VolleyResponseListener() {
-                        @Override
-                        public void onError(String message) {
-                            Toast.makeText(LogIn.this, message, Toast.LENGTH_SHORT).show();
-                        }
-
-                        @Override
-                        public void onSuccess(String message) {
-                            ShuttleResApplication.getInstance().getAppBeanFactory().getDataManager().getUserDetails(email);
-                            Toast.makeText(LogIn.this, message, Toast.LENGTH_LONG).show();
-                            Intent i = new Intent(LogIn.this, Home.class);
-                            startActivity(i);
-                            finish();
-                        }
-                    });
+            logIn(email, pw);
         });
 
         btnSignUp.setOnClickListener(v ->{
@@ -72,5 +61,28 @@ public class LogIn extends AppCompatActivity
             startActivity(intent);
             finish();
         });
+    }
+
+
+    public void logIn(String email ,String pw){
+        ShuttleResApplication.getInstance().getAppBeanFactory().getUserManager().signIn(email, pw,
+                new VolleyResponseListener() {
+                    @Override
+                    public void onError(String message) {
+                        Toast.makeText(LogIn.this, message, Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onSuccess(String message) {
+                        if(rememberMe.isChecked())
+                            ShuttleResApplication.getInstance().getAppBeanFactory().getDataManager().rememberMe(email, pw);
+
+                        ShuttleResApplication.getInstance().getAppBeanFactory().getDataManager().getUserDetails(email);
+                        Toast.makeText(LogIn.this, message, Toast.LENGTH_LONG).show();
+                        Intent i = new Intent(LogIn.this, Home.class);
+                        startActivity(i);
+                        finish();
+                    }
+                });
     }
 }
