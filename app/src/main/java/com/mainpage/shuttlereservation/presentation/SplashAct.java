@@ -16,6 +16,7 @@ import com.mainpage.shuttlereservation.network.VolleyResponseListener;
 
 public class SplashAct extends AppCompatActivity
 {
+    private String email, pw;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,14 +24,12 @@ public class SplashAct extends AppCompatActivity
         setContentView(R.layout.splashact);
 
         long splash_Timeout = 4000;
-        new Handler().postDelayed(new Runnable()
-        {
-            @Override
-            public void run()
-            {
-                checkForUser();
-
-                Intent i = new Intent(SplashAct.this,LogIn.class);
+        new Handler().postDelayed(() -> {
+            if(checkForUser()){
+                logIn(email, pw);
+            }
+            else {
+                Intent i = new Intent(SplashAct.this, LogIn.class);
                 startActivity(i);
                 finish();
             }
@@ -38,14 +37,13 @@ public class SplashAct extends AppCompatActivity
 
     }
 
-    public void checkForUser(){
+    //TODO: Test
+    public boolean checkForUser(){
         SharedPreferences sharedPreferences = ShuttleResApplication.getCtx().getSharedPreferences("SharedPref", Context.MODE_PRIVATE);
-        String email = sharedPreferences.getString("email", "None");
-        String pw = sharedPreferences.getString("password", "None");
+        email = sharedPreferences.getString("email", "None");
+        pw = sharedPreferences.getString("password", "None");
 
-        if(!email.equals("None")) {
-            logIn(email, pw);
-        }
+        return !email.equals("None");
     }
 
     public void logIn(String email ,String pw){

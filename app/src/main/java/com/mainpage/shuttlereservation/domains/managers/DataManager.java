@@ -5,7 +5,6 @@ import android.content.SharedPreferences;
 
 import com.android.volley.Request;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.mainpage.shuttlereservation.R;
 import com.mainpage.shuttlereservation.ShuttleResApplication;
 import com.mainpage.shuttlereservation.network.APIConstants;
 import com.mainpage.shuttlereservation.domains.models.response.User;
@@ -45,15 +44,12 @@ public class DataManager
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-        }, error -> {
-
-        });
+        }, error -> {});
 
         MySingleton.getInstance(ShuttleResApplication.getCtx()).addToRequestQueue(request);
         
     }
 
-    //TODO: Implement 'Keep me signedIn Logic'
     public void rememberMe(String email, String password){
         SharedPreferences.Editor editor = sh.edit();
         editor.putString("email", email);

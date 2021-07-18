@@ -1,6 +1,4 @@
-package com.mainpage.shuttlereservation.presentation.profile;
-
-import androidx.lifecycle.ViewModelProviders;
+package com.mainpage.shuttlereservation.presentation.fragments;
 
 import android.os.Bundle;
 
@@ -16,8 +14,6 @@ import com.mainpage.shuttlereservation.R;
 
 public class Profile extends Fragment {
 
-    private ProfileViewModel mViewModel;
-
     public static Profile newInstance() {
         return new Profile();
     }
@@ -27,12 +23,4 @@ public class Profile extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.profile_fragment, container, false);
     }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        mViewModel = ViewModelProviders.of(this).get(ProfileViewModel.class);
-        // TODO: Use the ViewModel
-    }
-
 }

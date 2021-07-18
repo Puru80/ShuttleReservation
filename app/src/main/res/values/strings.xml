@@ -12,6 +12,8 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
     <string name="Comm">Communicate</string>
+    <string name="nav_open">Open</string>
+    <string name="nav_close">Close</string>
 
     <string name="menu_home">Home</string>
     <string name="menu_profile">Profile</string>
@@ -43,5 +45,7 @@
     <string name="enter_email">Enter email</string>
     <string name="select_destination">Select Destination</string>
     <string name="remember_me">Remember Me</string>
+    <string name="menu_tickets">My Tickets</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

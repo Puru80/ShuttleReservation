@@ -12,8 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".presentation.OTPVerification"></activity>
-        <activity android:name=".presentation.Cancelling" />
+        <activity android:name=".presentation.OTPVerification" />
         <activity android:name=".presentation.Booking" />
         <activity android:name=".presentation.SignUp" />
         <activity

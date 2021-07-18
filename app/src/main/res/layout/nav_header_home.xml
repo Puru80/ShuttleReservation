@@ -20,13 +20,12 @@
         android:paddingTop="@dimen/nav_header_vertical_spacing"
         app:srcCompat="@mipmap/ic_loggo_foreground" />
 
-    <EditText
+    <TextView
         android:id="@+id/text_Name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textSize="@dimen/_20sdp"
         android:ems="10"
-        android:enabled="false"
-        android:importantForAutofill="auto"
-        android:inputType="textPersonName" />
+        android:textColor="@color/black"/>
 
 </LinearLayout>
