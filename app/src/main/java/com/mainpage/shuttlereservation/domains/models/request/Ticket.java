@@ -1,6 +1,7 @@
 package com.mainpage.shuttlereservation.domains.models.request;
 
 public class Ticket {
+    private String origin;
     private String destination;
     private Long seats;
     private String timing;

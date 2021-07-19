@@ -33,24 +33,6 @@ public class DataManager
         return instance;
     }
 
-    public void getUserDetails(String email){
-        String url = APIConstants.HOST + APIConstants.GET_USER_DETAILS + email;
-
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, response -> {
-            try {
-                JSONObject object = response.getJSONObject("data");
-                user.setFirstName(object.getString("firstName"));
-                user.setLastName(object.getString("lastName"));
-                user.setUserEmail(object.getString("email"));
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }, error -> {});
-
-        MySingleton.getInstance(ShuttleResApplication.getCtx()).addToRequestQueue(request);
-        
-    }
-
     public void getUserDetails(String email, VolleyResponseListener volleyResponseListener){
         String url = APIConstants.HOST + APIConstants.GET_USER_DETAILS + email;
 

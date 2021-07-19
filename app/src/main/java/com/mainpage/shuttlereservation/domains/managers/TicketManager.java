@@ -5,15 +5,20 @@ import com.android.volley.Request;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.mainpage.shuttlereservation.ShuttleResApplication;
 import com.mainpage.shuttlereservation.domains.models.request.Ticket;
+import com.mainpage.shuttlereservation.domains.models.response.TicketResponse;
 import com.mainpage.shuttlereservation.network.APIConstants;
 import com.mainpage.shuttlereservation.network.MySingleton;
 import com.mainpage.shuttlereservation.network.VolleyResponseListener;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class TicketManager {
-    public TicketManager(){};
+    public TicketManager(){}
 
     public void bookTicket(Ticket ticket, VolleyResponseListener volleyResponseListener){
         String reqUrl = APIConstants.HOST + APIConstants.BOOK_TICKET;
@@ -45,5 +50,24 @@ public class TicketManager {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    public void getTickets(String email, VolleyResponseListener volleyResponseListener){
+        String url = APIConstants.HOST + APIConstants.GET_TICKETS + email;
+        List<TicketResponse> ticketList = new ArrayList<>();
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
+                response -> {
+                    try {
+                        JSONArray arr = response.getJSONArray("data");
+                        Ticket ticket = new Ticket();
+
+                        arr.getString(0);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }, error -> {
+
+        });
     }
 }
