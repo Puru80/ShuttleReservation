@@ -7,6 +7,7 @@ import com.mainpage.shuttlereservation.ShuttleResApplication;
 import com.mainpage.shuttlereservation.domains.models.request.Ticket;
 import com.mainpage.shuttlereservation.domains.models.response.TicketResponse;
 import com.mainpage.shuttlereservation.network.APIConstants;
+import com.mainpage.shuttlereservation.network.GetTicketCallback;
 import com.mainpage.shuttlereservation.network.MySingleton;
 import com.mainpage.shuttlereservation.network.VolleyResponseListener;
 
@@ -52,7 +53,7 @@ public class TicketManager {
         }
     }
 
-    public void getTickets(String email, VolleyResponseListener volleyResponseListener){
+    public void getTickets(String email, GetTicketCallback getTicketCallback){
         String url = APIConstants.HOST + APIConstants.GET_TICKETS + email;
         List<TicketResponse> ticketList = new ArrayList<>();
 
@@ -60,14 +61,31 @@ public class TicketManager {
                 response -> {
                     try {
                         JSONArray arr = response.getJSONArray("data");
-                        Ticket ticket = new Ticket();
 
-                        arr.getString(0);
+                        for(int i=0;i<arr.length();i++){
+                            TicketResponse ticket = new TicketResponse();
+                            JSONObject obj = arr.getJSONObject(i);
+
+                            ticket.setId(obj.getLong("id"));
+                            ticket.setOrigin(obj.getString("origin"));
+                            ticket.setDestination(obj.getString("destination"));
+                            ticket.setSeats(obj.getLong("seats"));
+                            ticket.setTiming(obj.getString("timing"));
+                            ticket.setTimeOfBooking(obj.getString("timeOfBooking"));
+                            ticket.setPaymentStatus((obj.getBoolean("paymentStatus"))?"Done":"Pending");
+
+                            ticketList.add(ticket);
+                        }
+
+                        getTicketCallback.onSuccess(ticketList);
+
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
                 }, error -> {
-
+                    getTicketCallback.onError("Could Not Fetch Tickets");
         });
+
+        MySingleton.getInstance(ShuttleResApplication.getCtx()).addToRequestQueue(jsonObjectRequest);
     }
 }

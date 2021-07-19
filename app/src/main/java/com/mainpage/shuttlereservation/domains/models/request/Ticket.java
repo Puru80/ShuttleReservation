@@ -9,6 +9,14 @@ public class Ticket {
 
     public Ticket(){}
 
+    public String getOrigin() {
+        return origin;
+    }
+
+    public void setOrigin(String origin) {
+        this.origin = origin;
+    }
+
     public String getDestination() {
         return destination;
     }

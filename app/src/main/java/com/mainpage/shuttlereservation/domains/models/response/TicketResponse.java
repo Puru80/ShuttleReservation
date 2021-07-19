@@ -5,6 +5,7 @@ public class TicketResponse {
     private Long id;
     private String origin;
     private String destination;
+    private Long seats;
     private String timing;
     private String timeOfBooking;
     private String paymentStatus;
@@ -31,6 +32,14 @@ public class TicketResponse {
 
     public void setOrigin(String origin) {
         this.origin = origin;
+    }
+
+    public Long getSeats() {
+        return seats;
+    }
+
+    public void setSeats(Long seats) {
+        this.seats = seats;
     }
 
     public String getTiming() {
