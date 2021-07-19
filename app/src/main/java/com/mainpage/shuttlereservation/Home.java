@@ -9,6 +9,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import android.view.View;
 
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -26,21 +27,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.view.Menu;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class Home extends AppCompatActivity
 {
     private AppBarConfiguration mAppBarConfiguration;
-    private Toolbar toolbar;
-    private FloatingActionButton fab;
-
-    public void bookTickets(View view) {
-        Intent i = new Intent(Home.this, Booking.class);
-        startActivity(i);
-    }
-
+    private AppCompatButton btnBook;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,8 +41,38 @@ public class Home extends AppCompatActivity
         setContentView(R.layout.activity_home);
 
         setupUI();
+        listener();
+    }
 
+    public void setupUI(){
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
+        //Floating Action Button
+        FloatingActionButton fab = findViewById(R.id.fab);
+        fab.setOnClickListener(view -> ShuttleResApplication.getInstance().getAppBeanFactory().getUserManager().
+                signOut(ShuttleResApplication.getInstance().getAppBeanFactory().getUser().userEmail,
+                        new VolleyResponseListener() {
+                            @Override
+                            public void onError(String message) {
+                                Toast.makeText(Home.this, message, Toast.LENGTH_SHORT).show();
+                            }
+
+                            @Override
+                            public void onSuccess(String message) {
+                                SharedPreferences sharedPreferences = ShuttleResApplication.getCtx().getSharedPreferences("SharedPref",
+                                        Context.MODE_PRIVATE);
+                                SharedPreferences.Editor editor = sharedPreferences.edit();
+                                editor.putString("email", "None");
+                                editor.putString("password", "None");
+                                editor.apply();
+
+                                Toast.makeText(Home.this, message, Toast.LENGTH_LONG).show();
+                                Intent i = new Intent(Home.this, LogIn.class);
+                                startActivity(i);
+                                finish();
+                            }
+                        }));
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -60,49 +83,24 @@ public class Home extends AppCompatActivity
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
-        //Todo: Fix this
         View view = navigationView.inflateHeaderView(R.layout.nav_header_home);
         TextView txtUserName = view.findViewById(R.id.text_Name);
         TextView txtEmail = view.findViewById(R.id.text_Email);
         User user = ShuttleResApplication.getInstance().getAppBeanFactory().getDataManager().getUser();
 
-        txtUserName.setText(user.getFirstName() + " " + user.getLastName());
+        String userName = user.getFirstName() + " " + user.getLastName();
+
+        txtUserName.setText(userName);
         txtEmail.setText(user.getUserEmail());
+
+        btnBook = findViewById(R.id.buttonBook);
     }
 
-    public void setupUI(){
-        toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        //Floating Action Button
-        fab = findViewById(R.id.fab);
-        fab.setOnClickListener(view -> {
-            ShuttleResApplication.getInstance().getAppBeanFactory().getUserManager().
-                    signOut(ShuttleResApplication.getInstance().getAppBeanFactory().getUser().userEmail,
-                            new VolleyResponseListener() {
-                                @Override
-                                public void onError(String message) {
-                                    Toast.makeText(Home.this, message, Toast.LENGTH_SHORT).show();
-                                }
-
-                                @Override
-                                public void onSuccess(String message) {
-                                    SharedPreferences sharedPreferences = ShuttleResApplication.getCtx().getSharedPreferences("SharedPref",
-                                            Context.MODE_PRIVATE);
-                                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                                    editor.putString("email", "None");
-                                    editor.putString("password", "None");
-                                    editor.apply();
-
-                                    Toast.makeText(Home.this, message, Toast.LENGTH_LONG).show();
-                                    Intent i = new Intent(Home.this, LogIn.class);
-                                    startActivity(i);
-                                    finish();
-                                }
-                            });
+    public void listener(){
+        btnBook.setOnClickListener(view -> {
+            Intent i = new Intent(Home.this, Booking.class);
+            startActivity(i);
         });
-
-
     }
 
     @Override

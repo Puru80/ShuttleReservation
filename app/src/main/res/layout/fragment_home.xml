@@ -5,21 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="178dp"
-        android:layout_height="77dp"
-        android:layout_marginEnd="25dp"
-        android:layout_marginRight="25dp"
-        android:layout_marginBottom="80dp"
-        android:onClick="cancelTickets"
-        android:text="@string/canceltick"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.729"
-        app:layout_constraintStart_toStartOf="parent" />
-
     <ImageView
         android:id="@+id/imageView2"
         android:layout_width="426dp"
@@ -29,18 +14,14 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/bu" />
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="178dp"
-        android:layout_height="77dp"
-        android:layout_marginStart="25dp"
-        android:layout_marginLeft="25dp"
-        android:layout_marginTop="80dp"
-        android:onClick="bookTickets"
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/buttonBook"
+        android:layout_width="@dimen/_150sdp"
+        android:layout_height="wrap_content"
         android:text="@string/booktick"
         android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.054"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 </androidx.constraintlayout.widget.ConstraintLayout>
