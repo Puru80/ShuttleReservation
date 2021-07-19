@@ -22,8 +22,18 @@ public class UserManager
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, reqURL, null,
                 response -> {
-                    ShuttleResApplication.getInstance().getAppBeanFactory().getDataManager().getUserDetails(email);
-                    responseListener.onSuccess("LogIn Successful");
+                    //Getting User Details
+                    ShuttleResApplication.getInstance().getAppBeanFactory().getDataManager().getUserDetails(email, new VolleyResponseListener() {
+                        @Override
+                        public void onError(String message) {
+
+                        }
+
+                        @Override
+                        public void onSuccess(String message) {
+                            responseListener.onSuccess("User SignIn Successful");
+                        }
+                    });
                 }, error -> {
             NetworkResponse networkResponse = error.networkResponse;
             try{
@@ -47,7 +57,7 @@ public class UserManager
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, reqURL, null,
                 response -> {
-                    responseListener.onSuccess("LogIn Successful");
+                    responseListener.onSuccess("SignOut Successful");
                 }, error -> {
             NetworkResponse networkResponse = error.networkResponse;
             try{
@@ -65,17 +75,12 @@ public class UserManager
         MySingleton.getInstance(ShuttleResApplication.getCtx()).addToRequestQueue(jsonObjectRequest);
     }
 
+    //TODO: Handle for userDetails
     public void signUp(JSONObject jsonBody, VolleyResponseListener responseListener) {
         String url = APIConstants.HOST + APIConstants.SIGN_UP ;
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, jsonBody,
                 response -> {
-                    try {
-                        ShuttleResApplication.getInstance().getAppBeanFactory().getDataManager().
-                                getUserDetails(jsonBody.getString("email"));
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
                     responseListener.onSuccess("Email Registered, Please verify your email");
                 },
                 error -> {
@@ -96,12 +101,23 @@ public class UserManager
         MySingleton.getInstance(ShuttleResApplication.getCtx()).addToRequestQueue(request);
     }
 
-    public void verifyOTP(String otp, VolleyResponseListener responseListener){
+    public void verifyOTP(String otp, String email, VolleyResponseListener responseListener){
         String reqURL = APIConstants.HOST + APIConstants.EMAIL_VERIFICATION + otp;
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, reqURL, null,
                 response -> {
-                    responseListener.onSuccess("Email Confirmed");
+                    //Getting User Details
+                    ShuttleResApplication.getInstance().getAppBeanFactory().getDataManager().getUserDetails(email, new VolleyResponseListener() {
+                        @Override
+                        public void onError(String message) {
+
+                        }
+
+                        @Override
+                        public void onSuccess(String message) {
+                            responseListener.onSuccess("User Verified ");
+                        }
+                    });
                 }, error -> {
                     NetworkResponse networkResponse = error.networkResponse;
                     try{

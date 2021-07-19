@@ -9,6 +9,7 @@ import com.mainpage.shuttlereservation.ShuttleResApplication;
 import com.mainpage.shuttlereservation.network.APIConstants;
 import com.mainpage.shuttlereservation.domains.models.response.User;
 import com.mainpage.shuttlereservation.network.MySingleton;
+import com.mainpage.shuttlereservation.network.VolleyResponseListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -48,6 +49,27 @@ public class DataManager
 
         MySingleton.getInstance(ShuttleResApplication.getCtx()).addToRequestQueue(request);
         
+    }
+
+    public void getUserDetails(String email, VolleyResponseListener volleyResponseListener){
+        String url = APIConstants.HOST + APIConstants.GET_USER_DETAILS + email;
+
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null, response -> {
+            try {
+                JSONObject object = response.getJSONObject("data");
+                user.setFirstName(object.getString("firstName"));
+                user.setLastName(object.getString("lastName"));
+                user.setUserEmail(object.getString("email"));
+
+                volleyResponseListener.onSuccess("Success");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }, error -> {
+            volleyResponseListener.onError("Error Occurred");
+        });
+
+        MySingleton.getInstance(ShuttleResApplication.getCtx()).addToRequestQueue(request);
     }
 
     public void rememberMe(String email, String password){

@@ -23,7 +23,7 @@ public class SplashAct extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splashact);
 
-        long splash_Timeout = 4000;
+        long splash_Timeout = 2500;
         new Handler().postDelayed(() -> {
             if(checkForUser()){
                 logIn(email, pw);
@@ -37,7 +37,6 @@ public class SplashAct extends AppCompatActivity
 
     }
 
-    //TODO: Test
     public boolean checkForUser(){
         SharedPreferences sharedPreferences = ShuttleResApplication.getCtx().getSharedPreferences("SharedPref", Context.MODE_PRIVATE);
         email = sharedPreferences.getString("email", "None");
@@ -59,7 +58,6 @@ public class SplashAct extends AppCompatActivity
 
                     @Override
                     public void onSuccess(String message) {
-                        ShuttleResApplication.getInstance().getAppBeanFactory().getDataManager().getUserDetails(email);
                         Toast.makeText(SplashAct.this, message, Toast.LENGTH_LONG).show();
                         Intent i = new Intent(SplashAct.this, Home.class);
                         startActivity(i);

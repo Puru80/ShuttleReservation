@@ -63,7 +63,6 @@ public class LogIn extends AppCompatActivity
         });
     }
 
-
     public void logIn(String email ,String pw){
         ShuttleResApplication.getInstance().getAppBeanFactory().getUserManager().signIn(email, pw,
                 new VolleyResponseListener() {
@@ -77,7 +76,6 @@ public class LogIn extends AppCompatActivity
                         if(rememberMe.isChecked())
                             ShuttleResApplication.getInstance().getAppBeanFactory().getDataManager().rememberMe(email, pw);
 
-                        ShuttleResApplication.getInstance().getAppBeanFactory().getDataManager().getUserDetails(email);
                         Toast.makeText(LogIn.this, message, Toast.LENGTH_LONG).show();
                         Intent i = new Intent(LogIn.this, Home.class);
                         startActivity(i);
