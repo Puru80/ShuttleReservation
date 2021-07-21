@@ -22,6 +22,7 @@ public class DataManager
     private static final Context ctx = ShuttleResApplication.getCtx();
     private static final DataManager instance = new DataManager();
     private static final User user = new User();
+    private static final List<String> origin = new ArrayList<>();
     private static final List<String> destinations = new ArrayList<>();
     private static final List<String> timings = new ArrayList<>();
     private static final List<String> seats = new ArrayList<>();
@@ -65,6 +66,7 @@ public class DataManager
     public List<String> getDestinations(){
         if(destinations.isEmpty()){
             destinations.add("Select Destination");
+            destinations.add("Bennett University");
             destinations.add("Pari Chowk");
             destinations.add("Noida City Center");
             destinations.add("Botanical Garden");
@@ -72,14 +74,24 @@ public class DataManager
         return destinations;
     }
 
+    public List<String> getOrigin(){
+        if(origin.isEmpty()){
+            origin.add("Select Origin");
+            origin.add("Bennett University");
+            origin.add("Pari Chowk");
+            origin.add("Noida City Centre");
+            origin.add("Botanical Garden");
+        }
+
+        return origin;
+    }
+
     public List<String> getTimings() {
         if(timings.isEmpty()){
             timings.add("Select Time");
-            timings.add("Friday Out");
-            timings.add("Saturday In");
-            timings.add("Saturday Out");
-            timings.add("Sunday In");
-
+            timings.add("Friday");
+            timings.add("Saturday");
+            timings.add("Sunday");
         }
         return timings;
     }

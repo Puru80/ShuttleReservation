@@ -8,7 +8,7 @@
     tools:context=".presentation.Booking">
 
     <androidx.appcompat.widget.AppCompatSpinner
-        android:id="@+id/destSpinner"
+        android:id="@+id/originSpinner"
         android:layout_width="@dimen/_220sdp"
         android:layout_height="@dimen/_30sdp"
         android:prompt="@string/select_destination"
@@ -17,6 +17,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatSpinner
+        android:id="@+id/destSpinner"
+        android:layout_width="@dimen/_220sdp"
+        android:layout_height="@dimen/_30sdp"
+        android:prompt="@string/select_destination"
+        android:spinnerMode="dropdown"
+        android:layout_marginTop="@dimen/_30sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/originSpinner" />
 
     <androidx.appcompat.widget.AppCompatSpinner
         android:id="@+id/timeSpinner"

@@ -26,6 +26,7 @@ public class TicketManager {
 
         JSONObject jsonBody = new JSONObject();
         try {
+            jsonBody.put("origin", ticket.getOrigin());
             jsonBody.put("destination", ticket.getDestination());
             jsonBody.put("timing", ticket.getTiming());
             jsonBody.put("seats", ticket.getSeats());
