@@ -51,7 +51,7 @@ public class Home extends AppCompatActivity
         //Floating Action Button
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(view -> ShuttleResApplication.getInstance().getAppBeanFactory().getUserManager().
-                signOut(ShuttleResApplication.getInstance().getAppBeanFactory().getUser().userEmail,
+                signOut(ShuttleResApplication.getInstance().getAppBeanFactory().getDataManager().getUser().userEmail,
                         new VolleyResponseListener() {
                             @Override
                             public void onError(String message) {

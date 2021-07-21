@@ -7,20 +7,9 @@ import com.mainpage.shuttlereservation.domains.managers.UserManager;
 
 public class AppBeanFactory
 {
-    private User user;
     private UserManager userManager;
     private DataManager dataManager;
     private TicketManager ticketManager;
-
-    public User getUser()
-    {
-        if(user==null)
-        {
-            this.user = new User();
-        }
-
-        return this.user;
-    }
 
     public UserManager getUserManager() {
         if(this.userManager==null){

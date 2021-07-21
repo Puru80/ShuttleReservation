@@ -28,7 +28,6 @@ public class Booking extends AppCompatActivity
     private Ticket ticket;
     private List<String> origin, destinations, timing, seats;
     private ArrayAdapter<String> arrayAdapter;
-//    private int i=3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -100,8 +99,6 @@ public class Booking extends AppCompatActivity
                         timing.add("Saturday");
                         timing.add("Sunday");
                     }
-
-//                    Toast.makeText(Booking.this, i + " Selected", Toast.LENGTH_SHORT).show();
                 }
 
                 arrayAdapter = new ArrayAdapter<>(Booking.this, android.R.layout.simple_spinner_item,

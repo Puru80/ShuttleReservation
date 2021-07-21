@@ -10,6 +10,14 @@ public class TicketResponse {
     private String timeOfBooking;
     private String paymentStatus;
 
+    public TicketResponse() {
+    }
+
+    public TicketResponse(String origin, String destination) {
+        this.origin = origin;
+        this.destination = destination;
+    }
+
     public Long getId() {
         return id;
     }
