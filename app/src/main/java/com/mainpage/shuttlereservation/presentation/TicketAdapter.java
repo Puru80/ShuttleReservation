@@ -10,14 +10,15 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.mainpage.shuttlereservation.R;
+import com.mainpage.shuttlereservation.domains.models.response.TicketResponse;
 
 import java.util.List;
 
 public class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.Holder> {
-    private final List<Integer> tickets;
+    private final List<TicketResponse> tickets;
     private final Context ctx;
 
-    public TicketAdapter(Context ctx, List<Integer> list){
+    public TicketAdapter(Context ctx, List<TicketResponse> list){
         this.tickets = list;
         this.ctx = ctx;
     }
@@ -33,8 +34,11 @@ public class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.Holder> {
 
     @Override
     public void onBindViewHolder(@NonNull Holder holder, int position) {
-//        holder.origin.setText("Puru Agarwal");
-        holder.origin.setText(tickets.get(position));
+        TicketResponse response = tickets.get(position);
+
+        holder.origin.setText("From: " + response.getOrigin());
+        holder.destination.setText("To: " + response.getDestination());
+
     }
 
     @Override
@@ -44,11 +48,13 @@ public class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.Holder> {
 
     public static class Holder extends RecyclerView.ViewHolder {
         private final TextView origin;
+        private final TextView destination;
 
         public Holder(@NonNull View itemView) {
             super(itemView);
 
             origin = itemView.findViewById(R.id.ticket_origin);
+            destination = itemView.findViewById(R.id.ticket_destination);
         }
     }
 }

@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import com.android.volley.Request;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.mainpage.shuttlereservation.ShuttleResApplication;
+import com.mainpage.shuttlereservation.domains.models.response.TicketResponse;
 import com.mainpage.shuttlereservation.network.APIConstants;
 import com.mainpage.shuttlereservation.domains.models.response.User;
 import com.mainpage.shuttlereservation.network.MySingleton;
@@ -22,6 +23,7 @@ public class DataManager
     private static final Context ctx = ShuttleResApplication.getCtx();
     private static final DataManager instance = new DataManager();
     private static final User user = new User();
+    private static List<TicketResponse> ticketResponses = new ArrayList<>();
     private static final List<String> origin = new ArrayList<>();
     private static final List<String> destinations = new ArrayList<>();
     private static final List<String> timings = new ArrayList<>();
