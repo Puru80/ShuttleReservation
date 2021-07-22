@@ -38,11 +38,11 @@ public class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.Holder> {
     public void onBindViewHolder(@NonNull Holder holder, int position) {
         TicketResponse response = tickets.get(position);
 
-        holder.id.setText(String.valueOf(response.getId()));
-        holder.origin.setText("From :" + response.getOrigin());
-        holder.destination.setText("To      :" + response.getDestination());
-        holder.time.setText("Time :" + response.getTiming());
-        holder.tob.setText("TOB  :" + response.getTimeOfBooking());
+        holder.id.setText(String.valueOf("Id       : " + response.getId()));
+        holder.origin.setText("From : " + response.getOrigin());
+        holder.destination.setText("To      : " + response.getDestination());
+        holder.time.setText("Time : " + response.getTiming());
+        holder.tob.setText("TOB  : " + response.getTimeOfBooking());
 
     }
 

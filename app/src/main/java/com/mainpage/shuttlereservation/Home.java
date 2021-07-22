@@ -34,23 +34,45 @@ public class Home extends AppCompatActivity
 {
     private AppBarConfiguration mAppBarConfiguration;
     private AppCompatButton btnBook;
+    private FloatingActionButton fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        setupUI(0);
+        setupUI();
         listener();
     }
 
-    //TODO: btnBooking not working after seeing tickets
-    public void setupUI(int i){
+    public void setupUI(){
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         //Floating Action Button
-        FloatingActionButton fab = findViewById(R.id.fab);
+        fab = findViewById(R.id.fab);
+
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        mAppBarConfiguration = new AppBarConfiguration.Builder(R.id.nav_home, R.id.nav_profile, R.id.nav_share, R.id.nav_tickets)
+                .setOpenableLayout(drawer)
+                .build();
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+        NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
+        NavigationUI.setupWithNavController(navigationView, navController);
+
+        View view = navigationView.inflateHeaderView(R.layout.nav_header_home);
+        TextView txtUserName = view.findViewById(R.id.text_Name);
+        TextView txtEmail = view.findViewById(R.id.text_Email);
+        User user = ShuttleResApplication.getInstance().getAppBeanFactory().getDataManager().getUser();
+
+        String userName = user.getFirstName() + " " + user.getLastName();
+
+        txtUserName.setText(userName);
+        txtEmail.setText(user.getUserEmail());
+    }
+
+    public void listener(){
         fab.setOnClickListener(view -> ShuttleResApplication.getInstance().getAppBeanFactory().getUserManager().
                 signOut(ShuttleResApplication.getInstance().getAppBeanFactory().getDataManager().getUser().userEmail,
                         new VolleyResponseListener() {
@@ -74,43 +96,11 @@ public class Home extends AppCompatActivity
                                 finish();
                             }
                         }));
-
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        NavigationView navigationView = findViewById(R.id.nav_view);
-        mAppBarConfiguration = new AppBarConfiguration.Builder(R.id.nav_home, R.id.nav_profile, R.id.nav_share, R.id.nav_tickets)
-                .setOpenableLayout(drawer)
-                .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
-        NavigationUI.setupWithNavController(navigationView, navController);
-
-        if(i==0) {
-            View view = navigationView.inflateHeaderView(R.layout.nav_header_home);
-            TextView txtUserName = view.findViewById(R.id.text_Name);
-            TextView txtEmail = view.findViewById(R.id.text_Email);
-            User user = ShuttleResApplication.getInstance().getAppBeanFactory().getDataManager().getUser();
-
-            String userName = user.getFirstName() + " " + user.getLastName();
-
-            txtUserName.setText(userName);
-            txtEmail.setText(user.getUserEmail());
-        }
-
-        btnBook = findViewById(R.id.buttonBook);
-    }
-
-    public void listener(){
-        btnBook.setOnClickListener(view -> {
-            Intent i = new Intent(Home.this, Booking.class);
-            startActivity(i);
-        });
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        setupUI(1);
-        listener();
     }
 
     @Override
