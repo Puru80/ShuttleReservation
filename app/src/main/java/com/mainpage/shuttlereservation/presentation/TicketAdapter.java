@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -29,8 +30,6 @@ public class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.Holder> {
         View mItemView = LayoutInflater.from(ctx).inflate(R.layout.ticket_item,
                 parent, false);
 
-
-
         return new Holder(mItemView);
     }
 
@@ -38,11 +37,17 @@ public class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.Holder> {
     public void onBindViewHolder(@NonNull Holder holder, int position) {
         TicketResponse response = tickets.get(position);
 
-        holder.id.setText(String.valueOf("Id       : " + response.getId()));
-        holder.origin.setText("From : " + response.getOrigin());
-        holder.destination.setText("To      : " + response.getDestination());
-        holder.time.setText("Time : " + response.getTiming());
-        holder.tob.setText("TOB  : " + response.getTimeOfBooking());
+        String id = "Id       : " + response.getId();
+        String origin = "From : " + response.getOrigin();
+        String destination = "To      : " + response.getDestination();
+        String time = "Time : " + response.getTiming();
+        String tob = "TOB  : " + response.getTimeOfBooking();
+
+        holder.id.setText(id);
+        holder.origin.setText(origin);
+        holder.destination.setText(destination);
+        holder.time.setText(time);
+        holder.tob.setText(tob);
 
     }
 
@@ -51,7 +56,7 @@ public class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.Holder> {
         return tickets.size();
     }
 
-    public static class Holder extends RecyclerView.ViewHolder {
+    public class Holder extends RecyclerView.ViewHolder {
         private final TextView origin;
         private final TextView destination;
         private final TextView tob;
@@ -66,6 +71,12 @@ public class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.Holder> {
             destination = itemView.findViewById(R.id.ticket_destination);
             tob = itemView.findViewById(R.id.ticket_tob);
             time = itemView.findViewById(R.id.ticket_time);
+
+            itemView.setOnClickListener(v -> {
+                Toast.makeText(ctx, "Clicked: " + getAdapterPosition(), Toast.LENGTH_SHORT).show();
+
+
+            });
         }
     }
 }
