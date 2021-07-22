@@ -5,5 +5,7 @@
     <color name="colorAccent">#FD0318</color>
     <color name="white">#FDFCFC</color>
     <color name="black">#040404</color>
+    <color name="ticketbg">#E4ABC0</color>
+    <color name="grey">#838282</color>
 
 </resources>

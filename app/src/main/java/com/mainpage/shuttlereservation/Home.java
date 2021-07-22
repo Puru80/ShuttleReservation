@@ -40,11 +40,12 @@ public class Home extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        setupUI();
+        setupUI(0);
         listener();
     }
 
-    public void setupUI(){
+    //TODO: btnBooking not working after seeing tickets
+    public void setupUI(int i){
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -83,15 +84,17 @@ public class Home extends AppCompatActivity
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
-        View view = navigationView.inflateHeaderView(R.layout.nav_header_home);
-        TextView txtUserName = view.findViewById(R.id.text_Name);
-        TextView txtEmail = view.findViewById(R.id.text_Email);
-        User user = ShuttleResApplication.getInstance().getAppBeanFactory().getDataManager().getUser();
+        if(i==0) {
+            View view = navigationView.inflateHeaderView(R.layout.nav_header_home);
+            TextView txtUserName = view.findViewById(R.id.text_Name);
+            TextView txtEmail = view.findViewById(R.id.text_Email);
+            User user = ShuttleResApplication.getInstance().getAppBeanFactory().getDataManager().getUser();
 
-        String userName = user.getFirstName() + " " + user.getLastName();
+            String userName = user.getFirstName() + " " + user.getLastName();
 
-        txtUserName.setText(userName);
-        txtEmail.setText(user.getUserEmail());
+            txtUserName.setText(userName);
+            txtEmail.setText(user.getUserEmail());
+        }
 
         btnBook = findViewById(R.id.buttonBook);
     }
@@ -106,6 +109,8 @@ public class Home extends AppCompatActivity
     @Override
     protected void onResume() {
         super.onResume();
+        setupUI(1);
+        listener();
     }
 
     @Override

@@ -29,6 +29,8 @@ public class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.Holder> {
         View mItemView = LayoutInflater.from(ctx).inflate(R.layout.ticket_item,
                 parent, false);
 
+
+
         return new Holder(mItemView);
     }
 
@@ -36,8 +38,11 @@ public class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.Holder> {
     public void onBindViewHolder(@NonNull Holder holder, int position) {
         TicketResponse response = tickets.get(position);
 
-        holder.origin.setText("From: " + response.getOrigin());
-        holder.destination.setText("To: " + response.getDestination());
+        holder.id.setText(String.valueOf(response.getId()));
+        holder.origin.setText("From :" + response.getOrigin());
+        holder.destination.setText("To      :" + response.getDestination());
+        holder.time.setText("Time :" + response.getTiming());
+        holder.tob.setText("TOB  :" + response.getTimeOfBooking());
 
     }
 
@@ -49,12 +54,18 @@ public class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.Holder> {
     public static class Holder extends RecyclerView.ViewHolder {
         private final TextView origin;
         private final TextView destination;
+        private final TextView tob;
+        private final TextView time;
+        private final TextView id;
 
         public Holder(@NonNull View itemView) {
             super(itemView);
 
+            id = itemView.findViewById(R.id.ticket_id);
             origin = itemView.findViewById(R.id.ticket_origin);
             destination = itemView.findViewById(R.id.ticket_destination);
+            tob = itemView.findViewById(R.id.ticket_tob);
+            time = itemView.findViewById(R.id.ticket_time);
         }
     }
 }

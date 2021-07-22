@@ -23,7 +23,7 @@ public class DataManager
     private static final Context ctx = ShuttleResApplication.getCtx();
     private static final DataManager instance = new DataManager();
     private static final User user = new User();
-    private static List<TicketResponse> ticketResponses = new ArrayList<>();
+    public List<TicketResponse> ticketResponses = new ArrayList<>();
     private static final List<String> origin = new ArrayList<>();
     private static final List<String> destinations = new ArrayList<>();
     private static final List<String> timings = new ArrayList<>();

@@ -2,6 +2,8 @@ package com.mainpage.shuttlereservation.domains.managers;
 
 import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
+import com.android.volley.RetryPolicy;
+import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.mainpage.shuttlereservation.network.APIConstants;
 import com.mainpage.shuttlereservation.ShuttleResApplication;
@@ -45,6 +47,23 @@ public class UserManager
                 }
             }catch (Exception e) {
                 e.printStackTrace();
+            }
+        });
+
+        jsonObjectRequest.setRetryPolicy(new RetryPolicy() {
+            @Override
+            public int getCurrentTimeout() {
+                return 2000;
+            }
+
+            @Override
+            public int getCurrentRetryCount() {
+                return 3;
+            }
+
+            @Override
+            public void retry(VolleyError error) throws VolleyError {
+
             }
         });
 
