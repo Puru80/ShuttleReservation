@@ -73,8 +73,10 @@ public class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.Holder> {
             time = itemView.findViewById(R.id.ticket_time);
 
             itemView.setOnClickListener(v -> {
-                Toast.makeText(ctx, "Clicked: " + getAdapterPosition(), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(ctx, "Clicked: " + getAdapterPosition(), Toast.LENGTH_SHORT).show();
 
+                PopUpClass popUpClass = new PopUpClass(tickets.get(getAdapterPosition()));
+                popUpClass.showPopUpWindow(v);
 
             });
         }

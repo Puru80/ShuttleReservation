@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".presentation.fragments.TicketFragment"
     android:padding="@dimen/_10sdp"
-    android:background="@color/ticketbg">
+    android:background="@color/grey">
 
     <TextView
         android:id="@+id/noTickets"
