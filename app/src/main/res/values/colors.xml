@@ -7,5 +7,6 @@
     <color name="black">#040404</color>
     <color name="ticketbg">#E4ABC0</color>
     <color name="grey">#DAD5D5</color>
+    <color name="greyDark">#939191</color>
 
 </resources>

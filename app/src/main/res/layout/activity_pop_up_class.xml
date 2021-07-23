@@ -5,17 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    android:paddingHorizontal="@dimen/_30sdp"
+    android:paddingHorizontal="@dimen/_20sdp"
     tools:context=".presentation.PopUpClass">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/card_edge"
-        app:cardElevation="@dimen/_20sdp"
-        app:cardCornerRadius="@dimen/_5sdp"
-        app:strokeColor="@color/black"
-        app:strokeWidth="@dimen/_10sdp"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,7 +20,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:background="@drawable/card_edge">
 
             <LinearLayout
                 android:layout_width="match_parent"

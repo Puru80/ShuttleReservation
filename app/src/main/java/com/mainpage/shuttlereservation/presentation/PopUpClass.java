@@ -57,13 +57,13 @@ public class PopUpClass {
 
         setUpUI();
 
-        popupView.setOnTouchListener(new View.OnTouchListener() {
+        /*popupView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 popupWindow.dismiss();
                 return true;
             }
-        });
+        });*/
     }
 
     public void setUpUI(){
@@ -77,12 +77,6 @@ public class PopUpClass {
         String seatsStr = "Seats: " + response.getSeats();
         String paymentStatus = "Payment Status: " + response.getPaymentStatus();
 
-        /*holder.id.setText(id);
-        holder.origin.setText(origin);
-        holder.destination.setText(destination);
-        holder.time.setText(time);
-        holder.tob.setText(tob);*/
-
         id.setText(idStr);
         origin.setText(originStr);
         destination.setText(destinationStr);
@@ -90,7 +84,9 @@ public class PopUpClass {
         tob.setText(tobStr);
         seats.setText(seatsStr);
         paymentStatusTV.setText(paymentStatus);
-        
+
         btnOk.setOnClickListener(v -> popupWindow.dismiss());
+
+        //TODO: Implement delete functionality
     }
 }
