@@ -9,7 +9,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import android.view.View;
 
-import androidx.appcompat.widget.AppCompatButton;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -18,7 +17,6 @@ import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.navigation.NavigationView;
 import com.mainpage.shuttlereservation.domains.models.response.User;
 import com.mainpage.shuttlereservation.network.VolleyResponseListener;
-import com.mainpage.shuttlereservation.presentation.Booking;
 import com.mainpage.shuttlereservation.presentation.LogIn;
 
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -33,7 +31,6 @@ import android.widget.Toast;
 public class Home extends AppCompatActivity
 {
     private AppBarConfiguration mAppBarConfiguration;
-    private AppCompatButton btnBook;
     private FloatingActionButton fab;
 
     @Override

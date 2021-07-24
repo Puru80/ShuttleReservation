@@ -2,24 +2,25 @@ package com.mainpage.shuttlereservation.presentation;
 
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.mainpage.shuttlereservation.R;
+import com.mainpage.shuttlereservation.ShuttleResApplication;
 import com.mainpage.shuttlereservation.domains.models.response.TicketResponse;
+import com.mainpage.shuttlereservation.network.VolleyResponseListener;
 
 public class PopUpClass {
-    private TicketResponse response;
+    private final TicketResponse response;
     private TextView id, origin, destination, time, tob, seats, paymentStatusTV;
     private AppCompatButton btnOk, btnCancel;
     private PopupWindow popupWindow;
-
-    public PopUpClass(){}
+    private View popupView;
 
     public PopUpClass(TicketResponse response){
         this.response = response;
@@ -30,7 +31,7 @@ public class PopUpClass {
     public void showPopUpWindow(final View view){
         //Inflating the layout
         LayoutInflater inflater = LayoutInflater.from(view.getContext());
-        View popupView = inflater.inflate(R.layout.activity_pop_up_class, null);
+        popupView = inflater.inflate(R.layout.activity_pop_up_class, null);
 
         //Specify the length and width through constants
         int width = ConstraintLayout.LayoutParams.MATCH_PARENT;
@@ -56,19 +57,9 @@ public class PopUpClass {
         btnCancel = popupView.findViewById(R.id.btn_Cancel);
 
         setUpUI();
-
-        /*popupView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                popupWindow.dismiss();
-                return true;
-            }
-        });*/
     }
 
     public void setUpUI(){
-
-
         String idStr = "Id       : " + response.getId();
         String originStr = "From : " + response.getOrigin();
         String destinationStr = "To      : " + response.getDestination();
@@ -88,5 +79,21 @@ public class PopUpClass {
         btnOk.setOnClickListener(v -> popupWindow.dismiss());
 
         //TODO: Implement delete functionality
+        btnCancel.setOnClickListener(view ->{
+            ShuttleResApplication.getInstance().getAppBeanFactory().getTicketManager().cancelTicket(response.getId(),
+                    new VolleyResponseListener() {
+                @Override
+                public void onError(String message) {
+                    Toast.makeText(popupView.getContext(), message, Toast.LENGTH_SHORT).show();
+                    popupWindow.dismiss();
+                }
+
+                @Override
+                public void onSuccess(String message) {
+                    Toast.makeText(popupView.getContext(), message, Toast.LENGTH_SHORT).show();
+                    popupWindow.dismiss();
+                }
+            });
+        });
     }
 }

@@ -63,7 +63,7 @@ public class TicketManager {
                     try {
                         JSONArray arr = response.getJSONArray("data");
 
-                        for(int i=0;i<arr.length();i++){
+                        for(int i=arr.length()-1;i>=0;i--){
                             TicketResponse ticket = new TicketResponse();
                             JSONObject obj = arr.getJSONObject(i);
 
@@ -83,9 +83,22 @@ public class TicketManager {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                }, error -> {
-                    getTicketCallback.onError("Could Not Fetch Tickets");
-        });
+                }, error -> getTicketCallback.onError("Could Not Fetch Tickets"));
+
+        MySingleton.getInstance(ShuttleResApplication.getCtx()).addToRequestQueue(jsonObjectRequest);
+    }
+
+    public void cancelTicket(long id, VolleyResponseListener volleyResponseListener){
+        String url = APIConstants.HOST + APIConstants.DELETE_TICKET + id;
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.DELETE, url, null,
+                response -> {
+                    try {
+                        volleyResponseListener.onSuccess(response.getString("message"));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }, error -> volleyResponseListener.onError("Ticket CANNOT be cancelled after successful payment"));
 
         MySingleton.getInstance(ShuttleResApplication.getCtx()).addToRequestQueue(jsonObjectRequest);
     }

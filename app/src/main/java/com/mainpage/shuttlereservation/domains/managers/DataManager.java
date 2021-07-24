@@ -110,4 +110,12 @@ public class DataManager
     public User getUser() {
         return user;
     }
+
+    public void setTicketResponse(List<TicketResponse> responses){
+        this.ticketResponses = responses;
+    }
+
+    public List<TicketResponse> getTicketResponses() {
+        return ticketResponses;
+    }
 }

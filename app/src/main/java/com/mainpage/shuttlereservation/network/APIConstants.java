@@ -9,4 +9,5 @@ public class APIConstants {
     public static final String GET_USER_DETAILS = "registration/userdetails?email=";
     public static final String BOOK_TICKET = "ticket";
     public static final String GET_TICKETS = "ticket/mytickets?email=";
+    public static final String DELETE_TICKET = "ticket/cancellation?id=";
 }

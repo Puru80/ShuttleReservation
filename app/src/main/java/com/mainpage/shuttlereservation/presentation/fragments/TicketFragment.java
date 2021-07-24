@@ -14,7 +14,6 @@ import android.widget.TextView;
 import com.mainpage.shuttlereservation.R;
 import com.mainpage.shuttlereservation.ShuttleResApplication;
 import com.mainpage.shuttlereservation.domains.models.response.TicketResponse;
-import com.mainpage.shuttlereservation.network.GetTicketCallback;
 import com.mainpage.shuttlereservation.presentation.TicketAdapter;
 
 import java.util.ArrayList;
@@ -22,7 +21,6 @@ import java.util.List;
 
 public class TicketFragment extends Fragment {
     private List<TicketResponse> ticketResponses = new ArrayList<>();
-    String email = ShuttleResApplication.getInstance().getAppBeanFactory().getDataManager().getUser().getUserEmail();
     RecyclerView ticketList ;
     TicketAdapter tAdapter;
     private TextView noTickets;
@@ -38,12 +36,11 @@ public class TicketFragment extends Fragment {
         return view;
     }
 
-    //TODO: Resolve this
     public void setupUI(View view){
         ticketList = view.findViewById(R.id.ticketList);
         noTickets = view.findViewById(R.id.noTickets);
 
-        ShuttleResApplication.getInstance().getAppBeanFactory().getTicketManager().
+        /*ShuttleResApplication.getInstance().getAppBeanFactory().getTicketManager().
                 getTickets(email, new GetTicketCallback() {
             @Override
             public void onError(String message) {
@@ -64,6 +61,20 @@ public class TicketFragment extends Fragment {
                     ticketList.setAdapter(tAdapter);
                 }
             }
-        });
+        });*/
+
+        if(ShuttleResApplication.getInstance().getAppBeanFactory().getDataManager().ticketResponses.isEmpty())
+            noTickets.setVisibility(View.VISIBLE);
+
+        tAdapter = new TicketAdapter(getActivity(), ShuttleResApplication.getInstance().getAppBeanFactory().getDataManager().ticketResponses);
+        ticketList.setLayoutManager(new LinearLayoutManager(getActivity()));
+        ticketList.setAdapter(tAdapter);
+    }
+
+    //TODO: Data not refreshing
+    @Override
+    public void onResume() {
+        super.onResume();
+        tAdapter.notifyDataSetChanged();
     }
 }
