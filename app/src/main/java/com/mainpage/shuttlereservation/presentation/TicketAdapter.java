@@ -74,7 +74,7 @@ public class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.Holder> {
             itemView.setOnClickListener(v -> {
                 PopUpClass popUpClass = new PopUpClass(tickets.get(getAdapterPosition()));
                 popUpClass.showPopUpWindow(v);
-
+                notifyDataSetChanged();
             });
         }
     }

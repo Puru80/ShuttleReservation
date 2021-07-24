@@ -10,10 +10,6 @@
             android:icon="@drawable/ic_home_black_24dp"
             android:title="@string/menu_home" />
         <item
-            android:id="@+id/nav_profile"
-            android:icon="@drawable/ic_person_black_24dp"
-            android:title="@string/menu_profile" />
-        <item
             android:id="@+id/nav_tickets"
             android:icon="@drawable/ic_baseline_article_24"
             android:title="@string/menu_tickets" />

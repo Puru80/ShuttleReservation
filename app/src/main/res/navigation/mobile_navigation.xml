@@ -12,12 +12,6 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/nav_profile"
-        android:name="com.mainpage.shuttlereservation.presentation.fragments.Profile"
-        android:label="@string/menu_profile"
-        tools:layout="@layout/profile_fragment" />
-
-    <fragment
         android:id="@+id/nav_tickets"
         android:name="com.mainpage.shuttlereservation.presentation.fragments.TicketFragment"
         android:label="@string/menu_tickets"

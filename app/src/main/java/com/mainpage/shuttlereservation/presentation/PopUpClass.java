@@ -78,7 +78,6 @@ public class PopUpClass {
 
         btnOk.setOnClickListener(v -> popupWindow.dismiss());
 
-        //TODO: Implement delete functionality
         btnCancel.setOnClickListener(view ->{
             ShuttleResApplication.getInstance().getAppBeanFactory().getTicketManager().cancelTicket(response.getId(),
                     new VolleyResponseListener() {
@@ -91,6 +90,7 @@ public class PopUpClass {
                 @Override
                 public void onSuccess(String message) {
                     Toast.makeText(popupView.getContext(), message, Toast.LENGTH_SHORT).show();
+                    ShuttleResApplication.getInstance().getAppBeanFactory().getDataManager().ticketResponses.remove(response);
                     popupWindow.dismiss();
                 }
             });
