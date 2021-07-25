@@ -13,17 +13,11 @@ import android.widget.TextView;
 
 import com.mainpage.shuttlereservation.R;
 import com.mainpage.shuttlereservation.ShuttleResApplication;
-import com.mainpage.shuttlereservation.domains.models.response.TicketResponse;
 import com.mainpage.shuttlereservation.presentation.TicketAdapter;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class TicketFragment extends Fragment {
-    private List<TicketResponse> ticketResponses = new ArrayList<>();
     RecyclerView ticketList ;
     TicketAdapter tAdapter;
-    private TextView noTickets;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -38,43 +32,16 @@ public class TicketFragment extends Fragment {
 
     public void setupUI(View view){
         ticketList = view.findViewById(R.id.ticketList);
-        noTickets = view.findViewById(R.id.noTickets);
+        TextView noTickets = view.findViewById(R.id.noTickets);
 
-        /*ShuttleResApplication.getInstance().getAppBeanFactory().getTicketManager().
-                getTickets(email, new GetTicketCallback() {
-            @Override
-            public void onError(String message) {
-
-            }
-
-            @Override
-            public void onSuccess(List<TicketResponse> list) {
-                if(list.isEmpty()) {
-                    noTickets.setVisibility(View.VISIBLE);
-                    noTickets.setText(R.string.EmptyTicket);
-                }
-                else {
-                    for(int i=list.size()-1;i>=0;i--)
-                        ticketResponses.add(list.get(i));
-                    tAdapter = new TicketAdapter(getActivity(), ticketResponses);
-                    ticketList.setLayoutManager(new LinearLayoutManager(getActivity()));
-                    ticketList.setAdapter(tAdapter);
-                }
-            }
-        });*/
-
-        if(ShuttleResApplication.getInstance().getAppBeanFactory().getDataManager().ticketResponses.isEmpty())
+        if(ShuttleResApplication.getInstance().getAppBeanFactory().getDataManager().ticketResponses.isEmpty()) {
             noTickets.setVisibility(View.VISIBLE);
+            String noTicket = "No Tickets to Show";
+            noTickets.setText(noTicket);
+        }
 
         tAdapter = new TicketAdapter(getActivity(), ShuttleResApplication.getInstance().getAppBeanFactory().getDataManager().ticketResponses);
         ticketList.setLayoutManager(new LinearLayoutManager(getActivity()));
         ticketList.setAdapter(tAdapter);
-    }
-
-    //TODO: Data not refreshing
-    @Override
-    public void onResume() {
-        super.onResume();
-        tAdapter.notifyDataSetChanged();
     }
 }

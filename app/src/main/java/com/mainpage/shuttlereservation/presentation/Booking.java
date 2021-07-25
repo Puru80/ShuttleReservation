@@ -158,15 +158,15 @@ public class Booking extends AppCompatActivity
 
         btnBook.setOnClickListener(view -> {
             int i=4;
-            if(ticket.getOrigin().equals(origin.get(0)))
+            if(ticket.getOrigin().equals("Select Origin"))
                 ((TextView)originSpinner.getChildAt(0)).setError("Select a Valid Option");
             else
                 i--;
-            if(ticket.getDestination().equals(destinations.get(0)))
+            if(ticket.getDestination().equals("Select Destination"))
                 ((TextView)destinationSpinner.getChildAt(0)).setError("Select a Valid Option");
             else
                 i--;
-            if(ticket.getTiming().equals(timing.get(0)))
+            if(ticket.getTiming().equals("Select Time"))
                 ((TextView)timingSpinner.getChildAt(0)).setError("Select a Valid Option");
             else
                 i--;
