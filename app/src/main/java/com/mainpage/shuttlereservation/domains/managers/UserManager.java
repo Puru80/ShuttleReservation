@@ -53,7 +53,7 @@ public class UserManager
         jsonObjectRequest.setRetryPolicy(new RetryPolicy() {
             @Override
             public int getCurrentTimeout() {
-                return 2000;
+                return 3000;
             }
 
             @Override
@@ -94,7 +94,6 @@ public class UserManager
         MySingleton.getInstance(ShuttleResApplication.getCtx()).addToRequestQueue(jsonObjectRequest);
     }
 
-    //TODO: Handle for userDetails
     public void signUp(JSONObject jsonBody, VolleyResponseListener responseListener) {
         String url = APIConstants.HOST + APIConstants.SIGN_UP ;
 
@@ -116,6 +115,23 @@ public class UserManager
                         e.printStackTrace();
                     }
                 });
+
+        request.setRetryPolicy(new RetryPolicy() {
+            @Override
+            public int getCurrentTimeout() {
+                return 3000;
+            }
+
+            @Override
+            public int getCurrentRetryCount() {
+                return 3;
+            }
+
+            @Override
+            public void retry(VolleyError error) throws VolleyError {
+
+            }
+        });
 
         MySingleton.getInstance(ShuttleResApplication.getCtx()).addToRequestQueue(request);
     }

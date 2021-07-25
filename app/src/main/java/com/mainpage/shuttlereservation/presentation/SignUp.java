@@ -35,7 +35,7 @@ public class SignUp extends AppCompatActivity
     }
 
     public void setupUI(){
-        btnSignUp = findViewById(R.id.btnSignUp);
+        btnSignUp = findViewById(R.id.btnSignup);
         alreadyRegistered = findViewById(R.id.lnkLogin);
 
         fullName = findViewById(R.id.txtName);
