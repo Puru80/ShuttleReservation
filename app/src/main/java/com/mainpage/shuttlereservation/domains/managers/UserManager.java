@@ -10,12 +10,11 @@ import com.mainpage.shuttlereservation.ShuttleResApplication;
 import com.mainpage.shuttlereservation.network.MySingleton;
 import com.mainpage.shuttlereservation.network.VolleyResponseListener;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 public class UserManager
 {
-    public UserManager(){};
+    public UserManager(){}
 
     public void signIn(String email, String pw, VolleyResponseListener responseListener){
 
@@ -98,9 +97,7 @@ public class UserManager
         String url = APIConstants.HOST + APIConstants.SIGN_UP ;
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, jsonBody,
-                response -> {
-                    responseListener.onSuccess("Email Registered, Please verify your email");
-                },
+                response -> responseListener.onSuccess("Email Registered, Please verify your email"),
                 error -> {
                     NetworkResponse networkResponse = error.networkResponse;
                     try{
