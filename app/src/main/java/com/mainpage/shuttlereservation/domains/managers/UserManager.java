@@ -49,7 +49,7 @@ public class UserManager
             }
         });
 
-        jsonObjectRequest.setRetryPolicy(new RetryPolicy() {
+        /*jsonObjectRequest.setRetryPolicy(new RetryPolicy() {
             @Override
             public int getCurrentTimeout() {
                 return 3000;
@@ -64,7 +64,7 @@ public class UserManager
             public void retry(VolleyError error) throws VolleyError {
 
             }
-        });
+        });*/
 
         MySingleton.getInstance(ShuttleResApplication.getCtx()).addToRequestQueue(jsonObjectRequest);
     }
@@ -113,7 +113,7 @@ public class UserManager
                     }
                 });
 
-        request.setRetryPolicy(new RetryPolicy() {
+        /*request.setRetryPolicy(new RetryPolicy() {
             @Override
             public int getCurrentTimeout() {
                 return 3000;
@@ -128,7 +128,7 @@ public class UserManager
             public void retry(VolleyError error) throws VolleyError {
 
             }
-        });
+        });*/
 
         MySingleton.getInstance(ShuttleResApplication.getCtx()).addToRequestQueue(request);
     }
