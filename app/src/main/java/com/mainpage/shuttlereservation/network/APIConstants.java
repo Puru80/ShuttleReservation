@@ -1,7 +1,7 @@
 package com.mainpage.shuttlereservation.network;
 
 public class APIConstants {
-    public static final String HOST = "https://shuttleres-0.azurewebsites.net/api/v1/";
+    public static final String HOST = "http://52.172.249.77:8080/api/v1/";
     public static final String SIGN_IN = "registration/login?email=";
     public static final String SIGN_UP = "registration";
     public static final String SIGN_OUT = "registration/logout?email=";
